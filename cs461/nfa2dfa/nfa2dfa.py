@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import sys
 def main():
+	matrix=[]
+	mapping={}
 	line=sys.stdin.readline()
 	for word in line.split():
 		if word.isdigit():
@@ -24,16 +26,30 @@ def main():
 	states=line.split()[1:]
 	print("edges: ",states)
 
-	nodes=[]
 	for line in sys.stdin:
-		linelist=line.split()
-		nodes.append(int(linelist[0]))
+		linelist=line.replace("{}","-").replace("{","").replace("}","").split()
+		state=int(linelist[0])
 		del linelist[0]
-		print(linelist)
+		mapping[state]={}
+		seconddic={}
+		for i in states:	
+			seconddic[i]={}
+		count=0
+		for i in linelist:
+			if i =="-":
+				count+=1
+				continue
+			else:
+				i=i.replace(","," ").split()
+				for j in range(len(i)):
+					i[j]=int(i[j])
+				seconddic[states[count]]=i
+				count+=1
+		mapping[state]=seconddic
+	
+	for i in mapping:
+		print(i,mapping[i])
 
-	print("nodes",nodes)
-
-		
 
 if __name__=="__main__":
 	main()
