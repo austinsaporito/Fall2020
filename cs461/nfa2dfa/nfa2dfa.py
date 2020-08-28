@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import sys
+import random
 
 mapping={}
 def Eclosurestate(state):
@@ -24,18 +25,22 @@ def Eclosurestate(state):
 		stack.pop(0)
 	return sorted(returnlist)
 
-def Eclosureset(num):
+def Eclosureset(t):
 	
 	Tlist=[]
-	for i in range(1,num+1):
-		Tlist.append(Eclosurestate(i))
+	for i in t:
+		for j in i:
+			Tlist.append(Eclosurestate(j))
 	return Tlist
 
-def move(state):
-	
+def move(t,state):
 	returnset=[]
-	for i in range(1,len(mapping)+1):
-		returnset.append(mapping[i][state])
+
+	for i in t:
+		if not mapping[i][state]:
+			continue
+		else:
+			returnset.append(mapping[i][state])
 	return returnset
 
 def main():
@@ -83,16 +88,34 @@ def main():
 				seconddic[states[count]]=i
 				count+=1
 		mapping[state]=seconddic
-#	print(mapping)
-#	print(Eclosurestate(4))
 
-#	print(Eclosureset(numberofstate))
+	s0=Eclosurestate(initialstate)
 
-#	print(move("a"))
+	stack=[]
+	stack.append(s0)
 
-	dstates=Eclosurestate(initialstate)
+	hadlist=[]
+	while stack:
+	#	print("stack",stack)
+		T=stack[0]
+		stack.pop(0)
+		for i in states[:-1]:
+		#	print("set to look at",T)
+		#	print("edge: ",i)
+			U=Eclosureset(move(T,i))
+		#	print("U: ",U)
+			for k in U:
+		#		print("U",k)
+				if k not in hadlist:
+					stack.append(k)
+					hadlist.append(k)
+	for i in hadlist:
+		print(i)
 
-	print(dstates)
+
+	
+
+
 
 
 
