@@ -1,8 +1,52 @@
 #!/usr/bin/python3
+
 import sys
+
+mapping={}
+def Eclosurestate(state):
+	stack=[]
+	returnlist=[]
+	hadlist=[]
+	returnlist.append(state)
+	for i in mapping[state]["E"]:
+		stack.append(i)
+		returnlist.append(i)
+	
+	while stack:
+
+		for i in stack:
+			if mapping[i]["E"]=="{}":
+				continue
+			else:
+				for j in mapping[i]["E"]:
+					if i not in hadlist:
+						stack.append(j)
+						returnlist.append(j)
+				hadlist.append(stack.pop(0))
+	
+	tmp = list(set(returnlist))
+	tmp.sort()
+	return tmp
+
+def Eclosureset(num):
+	
+	Tlist=[]
+	for i in range(1,num+1):
+		Tlist.append(Eclosurestate(i))
+	return Tlist
+
+def move(state):
+	
+	returnset=[]
+	for i in range(1,len(mapping)+1):
+		returnset.append(mapping[i][state])
+	return returnset
+
+
+
+
 def main():
 	matrix=[]
-	mapping={}
 	line=sys.stdin.readline()
 	for word in line.split():
 		if word.isdigit():
@@ -46,10 +90,12 @@ def main():
 				seconddic[states[count]]=i
 				count+=1
 		mapping[state]=seconddic
-	
-	for i in mapping:
-		print(i,mapping[i])
+#	print(mapping)
+#	print(Eclosurestate(4))
 
+#	print(Eclosureset(numberofstate))
+
+#	print(move("a"))
 
 if __name__=="__main__":
 	main()
