@@ -4,29 +4,25 @@ import sys
 
 mapping={}
 def Eclosurestate(state):
+
 	stack=[]
 	returnlist=[]
-	hadlist=[]
 	returnlist.append(state)
 	for i in mapping[state]["E"]:
 		stack.append(i)
 		returnlist.append(i)
-	
-	while stack:
 
+	while stack:
 		for i in stack:
 			if mapping[i]["E"]=="{}":
 				continue
 			else:
 				for j in mapping[i]["E"]:
-					if i not in hadlist:
+					if j not in returnlist:
 						stack.append(j)
 						returnlist.append(j)
-				hadlist.append(stack.pop(0))
-	
-	tmp = list(set(returnlist))
-	tmp.sort()
-	return tmp
+		stack.pop(0)
+	return sorted(returnlist)
 
 def Eclosureset(num):
 	
@@ -41,9 +37,6 @@ def move(state):
 	for i in range(1,len(mapping)+1):
 		returnset.append(mapping[i][state])
 	return returnset
-
-
-
 
 def main():
 	matrix=[]
@@ -96,6 +89,14 @@ def main():
 #	print(Eclosureset(numberofstate))
 
 #	print(move("a"))
+
+	dstates=Eclosurestate(initialstate)
+
+	print(dstates)
+
+
+
+	
 
 if __name__=="__main__":
 	main()
