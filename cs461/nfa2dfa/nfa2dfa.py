@@ -46,7 +46,6 @@ def move(t,state):
 	last=[]
 	if not t:
 		return
-
 	for i in t:
 		if not mapping[i][state]:
 			continue
@@ -76,7 +75,6 @@ def main():
 			numberofstate=int(word)
 
 	line=sys.stdin.readline()
-	global states
 	states=line.split()[1:]
 
 	for line in sys.stdin:
@@ -103,14 +101,15 @@ def main():
 ###########################################
 	s0=Eclosurestate(initialstate)
 
-
-
 	stack=[]
 	hadlist=[]
 	stack.append(s0)
 	hadlist.append(s0)
 	dfamap={}
+	nodemapping=[]	
 	count=1
+
+	nodemapping.append(s0)
 
 	while stack:
 		seconddfamap={}
@@ -123,13 +122,45 @@ def main():
 			seconddfamap[i]=U
 			dfamap[count]=seconddfamap
 		count+=1
-
-	print("before map output")
+	
+	hadlist=[]
 	for i in dfamap:
-		print(i,dfamap[i])
+		for k in states[:-1]:
+			if dfamap[i][k] != None and dfamap[i][k] not in hadlist:
+				nodemapping.append(dfamap[i][k])
+				hadlist.append(dfamap[i][k])
+				count+=1
+
+	print("reading NFA ... done.\n\ncreating corresponding DFA ...")
+	for i in range(len(nodemapping)):
+		print("New DFA state:\t",i+1,"-->\t", nodemapping[i])  
+	print("done.\n")
+
+	print("Final DFA:")
+	print("Initial state: 1")
+	newfinal=[]
+	for i in range(len(nodemapping)):
+		for j in finalstate:
+			if j in nodemapping[i] and (i+1) not in newfinal:
+				newfinal.append(i+1)
+	
+	print("Final States: ", newfinal)
+	print("Total States: ",len(nodemapping))
+	
+	print("State\t ",end="")
+	for i in states[:-1]:
+		print(i,"\t\t",end="")
+	print()
+	count=1
+	for i in dfamap:
+		print(count,end="\t")
+		for j in states[:-1]:
+			if dfamap[i][j] in nodemapping:
+				node=nodemapping.index(dfamap[i][j])
+				print("{",node+1,"}",end="\t\t")
+			if dfamap[i][j] is None:
+				print("{}",end="\t\t")
 		print()
-
-
-
+		count+=1
 if __name__=="__main__":
 	main()
