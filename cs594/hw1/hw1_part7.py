@@ -42,7 +42,28 @@ def main():
 		num=len(re.findall("(?="+i+")",genomestring))
 		genomedic.update({i:num/denom})
 
-	randomgenome="CAT"
+	randomgenome=""
+
+	while len(randomgenome)<3:
+
+		aval=aprob
+		gval=gprob
+		cval=cprob
+		tval=tprob
+
+		x=random.random()
+		if x >0 and x< aval:
+			randomgenome+="A"
+		elif x >aval and x<gval+aval:
+			randomgenome+="G"
+
+		elif x>gval and x<cval+aval+gval:
+			randomgenome+="C"
+		else:
+			randomgenome+="T"
+		
+	print(randomgenome)
+
 	while len(randomgenome)<20000:
 		akey=randomgenome[-3:]+"A"
 		gkey=randomgenome[-3:]+"G"
