@@ -1,19 +1,36 @@
 #!/usr/bin/python3
 
+'''
+Austin Saporito
+PA1
+NFA2DFA:
+	Takes an NFA in stdin and converts it to a DFA on std out
+
+'''
+
 import sys
 import random
 
 mapping={}
+'''
+Pretty much ripped from the book. It takes the NFA state 'state' and return all the states 
+it can go to from E transitions alone
+'''
 def Eclosurestate(state):
 
 	stack=[]
 	returnlist=[]
 	returnlist.append(state)
-
+	'''
+	Initializing the stacklist with the given state
+	'''
 	for i in mapping[state]["E"]:
 		stack.append(i)
 		returnlist.append(i)
-
+	'''
+	exactly what it looks like adds anything that the state on the stack can go to with E 
+	transitions alone ignoring if it has nothing and returning that list
+	'''
 	while stack:
 		for i in stack:
 			if mapping[i]["E"]=="{}":
@@ -26,6 +43,10 @@ def Eclosurestate(state):
 		stack.pop(0)
 	return sorted(returnlist)
 
+'''
+I also got this function from the book. you give it a set of states and checks it that state can reach any other state on 
+E transitions using the above function and adds them on the list if not already in it to avoid duplicates
+'''
 def Eclosureset(t):
 	
 	Tlist=[]
@@ -40,6 +61,9 @@ def Eclosureset(t):
 				Tlist.append(j)
 	return sorted(Tlist)
 
+'''
+Second to last thing I got from the book lol. This function takes a set and a state and returns a list of everynode that can be reached from the given transition state
+'''
 def move(t,state):
 
 	returnset=[]
@@ -57,6 +81,11 @@ def move(t,state):
 
 def main():
 #############################################
+	'''
+	Super boring stuff of just reading the input nothing really to explain here
+	'''
+
+
 	matrix=[]
 	line=sys.stdin.readline()
 	for word in line.split():
@@ -99,6 +128,10 @@ def main():
 		mapping[state]=seconddic
 
 ###########################################
+
+	'''
+	We do this once on the initial state to populate our stack
+	'''
 	s0=Eclosurestate(initialstate)
 
 	stack=[]
@@ -110,7 +143,9 @@ def main():
 	count=1
 
 	nodemapping.append(s0)
-
+	'''
+	Last time I got something from the book. Using all the functions to actually make the DFA  
+	'''
 	while stack:
 		seconddfamap={}
 		T=stack.pop(0)
@@ -122,7 +157,10 @@ def main():
 			seconddfamap[i]=U
 			dfamap[count]=seconddfamap
 		count+=1
-	
+	'''
+	Everything below is to mape the set of nodes to one new node to use late and then 
+	a bunch of printing out and formatting stuff, also boring
+	'''
 	hadlist=[]
 	for i in dfamap:
 		for k in states[:-1]:
