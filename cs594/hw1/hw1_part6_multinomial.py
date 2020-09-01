@@ -36,7 +36,7 @@ def main():
 		if i =="T":
 			total+=math.log(tprob)	
 
-	print(total)
+	print("Log probabilty multinomial: ",total)
 
 
 if __name__ == "__main__":

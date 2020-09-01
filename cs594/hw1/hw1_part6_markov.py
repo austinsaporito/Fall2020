@@ -63,7 +63,7 @@ def main():
 		total+=math.log(genomedic[find])
 		lasti+=1
 
-	print(total)
+	print("Log probability Markov:",total)
 
 
 if __name__ == "__main__":

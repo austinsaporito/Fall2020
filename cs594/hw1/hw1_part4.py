@@ -13,12 +13,16 @@ def main():
 	ccount=genomestring.count('C')
 	gcount=genomestring.count('G')
 	tcount=genomestring.count('T')
-	
+	print("Nucleotide frequencies: ")
+	print()
 	print("A: ",acount/len(genomestring))
 	print("C: ",ccount/len(genomestring))
 	print("G: ",gcount/len(genomestring))
 	print("T: ",tcount/len(genomestring))
 
+	print()
+	print("Dinucleotide frequencies:")
+	print()
 	for i in di:
 		count=len(re.findall("(?="+i+")",genomestring))
 		print(i, count/(len(genomestring)))

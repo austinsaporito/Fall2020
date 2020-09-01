@@ -62,7 +62,6 @@ def main():
 		else:
 			randomgenome+="T"
 		
-	print(randomgenome)
 
 	while len(randomgenome)<20000:
 		akey=randomgenome[-3:]+"A"
@@ -86,7 +85,10 @@ def main():
 		else:
 			randomgenome+="T"
 
-	print(randomgenome)
+	for i in range(len(randomgenome)):
+		if i %71==0:
+			print()
+		print(randomgenome[i],end="")
 
 
 if __name__ == "__main__":
