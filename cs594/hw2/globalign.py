@@ -4,7 +4,9 @@
 
 def main():
     humanfile="AY707088.fasta"
+    #muskitofile="test1"
     muskitofile="X79493.fasta"
+    #humanfile="test2"
 
     with open(humanfile,"r") as hf:
         hf.readline()
@@ -15,13 +17,13 @@ def main():
         muskitogenome=mf.read()
 
     humangenome=humangenome.replace("\n","")
-    print(len(humangenome))
     muskitogenome=muskitogenome.replace("\n","")
 
-    humangenome=humangenome[:5]
-    muskitogenome=muskitogenome[:5]
+    #humangenome=humangenome[:5]
+    #muskitogenome=muskitogenome[:5]
 
     submatrix=[None]*(len(humangenome)+2)
+    directionmatrix=[None]*(len(humangenome)+2)
 
     for i in range(len(submatrix)):
         submatrix[i]=[None]*(len(muskitogenome)+2)
@@ -31,8 +33,8 @@ def main():
     mismatch=-1
     total=0
 
-    submatrix[1][0]="lamda"
-    submatrix[0][1]="lamda"
+    submatrix[1][0]="y"
+    submatrix[0][1]="y"
     #column
     for i in range(2,len(humangenome)+2):
         submatrix[i][0]=humangenome[i-2]
@@ -48,31 +50,45 @@ def main():
         total+=gap
     
     submatrix[1][i]=total
+    for i in range(len(submatrix)):
+        directionmatrix[i]=submatrix[i].copy()
 
     for i in range(len(submatrix)):
            for j in range(len(submatrix[i])):
                if submatrix[i][j] is None and i is not 0 and j is not 0:
                    diagnol=submatrix[i-1][j-1]
                    above=submatrix[i-1][j]
-                   left=submatrix[i][j-1]+gap
-
+                   left=submatrix[i][j-1]
+                   left+=gap
+                   above+=gap
+                    
                    if submatrix[0][j] is submatrix[i][0]:
                        diagnol+=match
-                   else:
+                   elif submatrix[0][j] is not submatrix[i][0]:
                        diagnol+=mismatch
-
-                   if diagnol > above and diagnol > left:
+                    
+                   if diagnol >= above and diagnol >= left:
                        submatrix[i][j]=diagnol
-                   elif above > diagnol and above > left:
+                       directionmatrix[i][j]="d"
+                   elif above >= diagnol and above >= left:
                        submatrix[i][j]=above
-                   else: 
+                       directionmatrix[i][j]="a"
+                   elif left >= above and left >= diagnol: 
                        submatrix[i][j]=left
+                       directionmatrix[i][j]="l"
+    humanlen=len(humangenome)
+    muskitolen=len(muskitogenome)
 
-    for i in submatrix:
-        print(i)
-
-
-
+    if humanlen > muskitolen:
+        traceback=muskitolen
+    else:
+        traceback=humanlen
+    
+    for i in range(len(submatrix)-1,-1,-1):
+        for j in range(len(submatrix[i])-1,-1,-1):
+            print(submatrix[i][j])
+            print(directionmatrix[i][j])
+            exit()
 
 if __name__=="__main__":
     main()
