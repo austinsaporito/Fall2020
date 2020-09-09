@@ -11,6 +11,7 @@ int list_type;
 
 %%
 
+
 "<h1>"[^<]*"</h1>" {
     /**************************************************************************
      * Matched an HTML H1 header so print it out as a LateX section title.
@@ -19,7 +20,203 @@ int list_type;
      *************************************************************************/
     yytext[yyleng-5] = 0;
     printf( "\\section{%s}", yytext+4 );
-    cout<<yytext+4;
+}
+
+"<h2>"[^<]*"</h2>" {
+    /**************************************************************************
+     * Matched an HTML H1 header so print it out as a LateX section title.
+     * The beginning and ending tags need to be stripped off before the
+     * title can be formatted in LateX.
+     *************************************************************************/
+    yytext[yyleng-5] = 0;
+    printf( "\\subsection{%s}", yytext+4 );
+}
+"<h3>"[^<]*"</h3>" {
+    /**************************************************************************
+     * Matched an HTML H1 header so print it out as a LateX section title.
+     * The beginning and ending tags need to be stripped off before the
+     * title can be formatted in LateX.
+     *************************************************************************/
+    yytext[yyleng-5] = 0;
+    printf( "\\subsubsection{%s}", yytext+4 );
+}
+
+"<ol>" {
+
+    printf("\\begin{enumerate}");
+    BEGIN OL;
+
+}
+
+<OL>"<li>"  {printf("\\item ");}
+
+<OL>"</li>"  {printf("\n");}
+
+<OL>. {printf("%s",yytext);}
+
+<OL>"<big>" {printf("{\\Large ");}
+
+<OL>"</big>" {printf("}");}
+
+<OL>"<small>" {printf("{\\scriptsize ");}
+
+<OL>"</small>" {printf("}");}
+
+<OL>"<i>" {printf("\\textit{");}
+
+<OL>"</i>" {printf("}");}
+
+<OL>"<b>" {printf("\\textbf{");}
+
+<OL>"</b>" {printf("}");}
+
+<OL>"<em>" {printf("\\emph{");}
+
+<OL>"</em>" {printf("}");}
+
+<OL>"<strong>" {printf("\\textmd{");}
+
+<OL>"</strong>" {printf("}");}
+
+<OL>"<sup>" {printf("\\textsuperscript{");}
+
+<OL>"</sup>" {printf("}");}
+
+<OL>"<sub>" {printf("\\textsubscript{");}
+
+<OL>"</sub>" {printf("}");}
+
+<OL>"</ol>" {
+
+printf("\\end{enumerate}\n");
+BEGIN 0;
+
+}
+
+
+"<ul>" {
+
+    printf("\\begin{itemize}");
+    BEGIN UL;
+
+}
+
+<UL>"<li>"  {printf("\\item ");}
+
+<UL>"</li>"  {printf("\n");}
+
+<UL>. {printf("%s",yytext);}
+
+<UL>"<big>" {printf("{\\Large ");}
+
+<UL>"</big>" {printf("}");}
+
+<UL>"<small>" {printf("{\\scriptsize ");}
+
+<UL>"</small>" {printf("}");}
+
+<UL>"<i>" {printf("\\textit{");}
+
+<UL>"</i>" {printf("}");}
+
+<UL>"<b>" {printf("\\textbf{");}
+
+<UL>"</b>" {printf("}");}
+
+<UL>"<em>" {printf("\\emph{");}
+
+<UL>"</em>" {printf("}");}
+
+<UL>"<strong>" {printf("\\textmd{");}
+
+<UL>"</strong>" {printf("}");}
+
+<UL>"<sup>" {printf("\\textsuperscript{");}
+
+<UL>"</sup>" {printf("}");}
+
+<UL>"<sub>" {printf("\\textsubscript{");}
+
+<UL>"</sub>" {printf("}");}
+
+<UL>"</ul>" {
+
+printf("\\end{itemize}\n");
+BEGIN 0;
+
+}
+
+"<pre>" {
+
+    printf("\\begin{verbatim}");
+    BEGIN PRE;
+
+}
+<PRE>. {
+    printf("%s",yytext);
+}
+<PRE>"</pre>" {
+
+    printf("\\end{verbatim}\n");
+    BEGIN 0;
+}
+
+"<p>" {
+
+    BEGIN PARA;
+}
+
+<PARA>. {
+
+    printf("%s",yytext);
+}
+
+<PARA>[ \t] {
+
+    printf("%s",yytext);
+
+}
+
+<PARA>[\n](\r)? {
+
+    printf( "\n" );
+}
+
+<PARA>"<big>" {printf("{\\Large ");}
+
+<PARA>"</big>" {printf("}");}
+
+<PARA>"<small>" {printf("{\\scriptsize ");}
+
+<PARA>"</small>" {printf("}");}
+
+<PARA>"<i>" {printf("\\textit{");}
+
+<PARA>"</i>" {printf("}");}
+
+<PARA>"<b>" {printf("\\textbf{");}
+
+<PARA>"</b>" {printf("}");}
+
+<PARA>"<em>" {printf("\\emph{");}
+
+<PARA>"</em>" {printf("}");}
+
+<PARA>"<strong>" {printf("\\textmd{");}
+
+<PARA>"</strong>" {printf("}");}
+
+<PARA>"<sup>" {printf("\\textsuperscript{");}
+
+<PARA>"</sup>" {printf("}");}
+
+<PARA>"<sub>" {printf("\\textsubscript{");}
+
+<PARA>"</sub>" {printf("}");}
+
+<PARA>"</p>" {
+    printf("\n\n");
+    BEGIN 0;
 }
 
 "<!--" {
@@ -80,9 +277,6 @@ int list_type;
      *************************************************************************/
     printf( "%s", yytext );
 }
-"<p>" {
-    printf( "%s" , yytext);
-}
 %%
 
 /**************************************************************************
@@ -92,6 +286,8 @@ int list_type;
  *  2. Invoke the lexer to print out the LateX document
  *  3. Print out the LateX footer.
  *************************************************************************/
+ 
+
 int main( int argc, const char *argv[] ) {
     printf( "\\documentclass[12pt]{article}\n" );
     printf( "\\usepackage{fixltx2e}\n" );
