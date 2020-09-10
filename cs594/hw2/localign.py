@@ -107,48 +107,43 @@ def main():
     else:
         traceback=humanlen
         tracebackstring=humangenome
-
-    finalstring=""
-    i=len(submatrix)-1
-    j=len(submatrix[0])-1
+    tmpstring1=""
+    tmpstring2=""
+    i=highesti
+    j=highestj
     traceback-=1
-    localignstring=""
     while traceback>=0:
-
         if directionmatrix[i][j] is "d":
-            finalstring=tracebackstring[traceback]+finalstring
-            #if i <= highesti and j <= highestj:
-            #    localignstring=tracebackstring[traceback]+localignstring
+            tmpstring1+=submatrix[i][0]
+            tmpstring2+=submatrix[0][j]
             i-=1
             j-=1
         elif directionmatrix[i][j] is "a" :
-            finalstring="-"+finalstring
+            tmpstring1+=submatrix[i][0]
+            tmpstring2+="-"
             i-=1
         elif directionmatrix[i][j] is "l":
-            finalstring="-"+finalstring
+            tmpstring2+=submatrix[0][j]
+            tmpstring1+="-"
             j-=1
         
         traceback-=1
     tmp=""
     tmp2=""
-    print(localignstring)
-    with open("localign.txt","a") as la:
-        la.write(finalstring+"\n")
-        la.write(humangenome+"\n")
-        la.write(localignstring+"\n")
-
-    '''
-    for i in range(len(finalstring)):
-        tmp+=finalstring[i]
-        tmp2+=humangenome[i]
-        if i % 25 == 0 and i is not 0:
+    tmpstring1=tmpstring1[::-1]
+    tmpstring2=tmpstring2[::-1]
+    for i in range(len(tmpstring1)):
+        tmp+=tmpstring1[i]
+        tmp2+=tmpstring2[i]
+        if i % 70 == 0 and i is not 0:
             print(tmp)
             print(tmp2)
             print()
             tmp=""
             tmp2=""
-    '''
-
+    print(tmp)
+    print(tmp2)
+    print()
 
 if __name__=="__main__":
     main()

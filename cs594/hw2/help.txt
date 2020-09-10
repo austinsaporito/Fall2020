@@ -1,0 +1,6 @@
+up tmp1 dash tmp2 char
+left tmp 1 char tmp 2 dash 
+
+maybe invert based on matrix
+
+if diagnol add to both
