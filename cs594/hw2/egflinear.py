@@ -4,7 +4,9 @@
 
 def main():
     humanfile="human_mito.fasta"
+    #muskitofile="test1"
     muskitofile="neander_sample.fasta"
+    #humanfile="test2"
 
     with open(humanfile,"r") as hf:
         hf.readline()
@@ -17,6 +19,8 @@ def main():
     humangenome=humangenome.replace("\n","")
     muskitogenome=muskitogenome.replace("\n","")
 
+    #humangenome=humangenome[:5]
+    #muskitogenome=muskitogenome[:5]
 
     submatrix=[None]*(len(humangenome)+2)
     directionmatrix=[None]*(len(humangenome)+2)
@@ -30,6 +34,7 @@ def main():
 
     submatrix[1][0]="y"
     submatrix[0][1]="y"
+    maxcolumn=len(humangenome)+2
     #column
     for i in range(2,len(humangenome)+2):
         submatrix[i][0]=humangenome[i-2]
@@ -37,6 +42,7 @@ def main():
 
     submatrix[i][1]=total
     total=0
+    maxrow=len(muskitogenome)+2
     #row
     for i in range(2,len(muskitogenome)+2):
         submatrix[0][i]=muskitogenome[i-2]
@@ -44,9 +50,15 @@ def main():
         
     
     submatrix[1][i]=total
+    #for i in submatrix:
+    #    print(i)
+    #exit()
     
     for i in range(len(submatrix)):
         directionmatrix[i]=submatrix[i].copy()
+    highesti=0
+    highestj=0
+    highest=0
     biggestcolumn=0
     biggestrow=0
 
@@ -72,12 +84,24 @@ def main():
                    if diagnol >= above and diagnol >= left:
                        submatrix[i][j]=diagnol
                        directionmatrix[i][j]="d"
+                       if diagnol > highest:
+                           highest=diagnol
+                           highesti=i
+                           highestj=j
                    elif above >= diagnol and above >= left:
                        submatrix[i][j]=above
                        directionmatrix[i][j]="a"
+                       if above > highest:
+                           highest=diagnol
+                           highesti=i
+                           highestj=j
                    elif left >= above and left >= diagnol: 
                        submatrix[i][j]=left
                        directionmatrix[i][j]="l"
+                       if left > highest:
+                           highest=diagnol
+                           highesti=i
+                           highestj=j
 
                    if j == len(submatrix[0])-1:
                        if submatrix[i][j] >= biggestcolumn:
@@ -86,6 +110,8 @@ def main():
                        if submatrix[i][j] >= biggestrow:
                            biggestrow=submatrix[i][j]
                     
+    humanlen=len(humangenome)
+    muskitolen=len(muskitogenome)
     if biggestrow > biggestcolumn:
         print(biggestrow)
     elif biggestcolumn > biggestrow:
