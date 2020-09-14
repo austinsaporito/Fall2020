@@ -21,7 +21,10 @@ int list_type;
     yytext[yyleng-5] = 0;
     printf( "\\section{%s}", yytext+4 );
 }
-
+    /*
+     * I just coppied h1 for h2 and h3 but instead just changed it to match what 
+     * was needed.
+    */
 "<h2>"[^<]*"</h2>" {
     /**************************************************************************
      * Matched an HTML H1 header so print it out as a LateX section title.
@@ -41,11 +44,30 @@ int list_type;
     printf( "\\subsubsection{%s}", yytext+4 );
 }
 
+    /*
+        If the analyser finds "<ol>" it begins the matching for OL and it will 
+        continue to match based on other rules it finds with the "<OL>" format.
+        if it is a formatting it replaces it with its respective match for latex 
+        and if it a newline or possibly a newline with a carrage return (for windows)
+        it will replace with a newline, and if it is any character it just prints out that character.
+        it returns when it sees a "</ol>"
+    */
+
 "<ol>" {
 
     printf("\\begin{enumerate}");
     BEGIN OL;
 
+}
+<OL>[ \t] {
+
+    printf("%s",yytext);
+
+}
+
+<OL>[\n](\r)? {
+
+    printf( "\n" );
 }
 
 <OL>"<li>"  {printf("\\item ");}
@@ -93,12 +115,30 @@ BEGIN 0;
 
 }
 
+    /*
+        If the analyser finds "<ul>" it begins the matching for UL and it will 
+        continue to match based on other rules it finds with the "<UL>" format.
+        if it is a formatting it replaces it with its respective match for latex 
+        and if it a newline or possibly a newline with a carrage return (for windows)
+        it will replace with a newline, and if it is any character it just prints out that character.
+        it returns when it sees a "</ul>"
+    */
 
 "<ul>" {
 
     printf("\\begin{itemize}");
     BEGIN UL;
 
+}
+<UL>[ \t] {
+
+    printf("%s",yytext);
+
+}
+
+<UL>[\n](\r)? {
+
+    printf( "\n" );
 }
 
 <UL>"<li>"  {printf("\\item ");}
@@ -146,6 +186,11 @@ BEGIN 0;
 
 }
 
+    /*
+        finds the "<pre>" and because its formatted it prints everything it finds. It only ends when it 
+        see's "</pre>"
+    */
+
 "<pre>" {
 
     printf("\\begin{verbatim}");
@@ -160,15 +205,18 @@ BEGIN 0;
     printf("\\end{verbatim}\n");
     BEGIN 0;
 }
+    /*
+        If the analyser finds "<p>" it begins the matching for PARA and it will 
+        continue to match based on other rules it finds with the "<PARA>" format.
+        if it is a formatting it replaces it with its respective match for latex 
+        and if it a newline or possibly a newline with a carrage return (for windows)
+        it will replace with a newline, and if it is any character it just prints out that character.
+        it returns when it sees a "</p>"
+    */
 
 "<p>" {
 
     BEGIN PARA;
-}
-
-<PARA>. {
-
-    printf("%s",yytext);
 }
 
 <PARA>[ \t] {
@@ -180,6 +228,11 @@ BEGIN 0;
 <PARA>[\n](\r)? {
 
     printf( "\n" );
+}
+
+<PARA>. {
+
+    printf("%s",yytext);
 }
 
 <PARA>"<big>" {printf("{\\Large ");}
@@ -218,7 +271,9 @@ BEGIN 0;
     printf("\n\n");
     BEGIN 0;
 }
-
+    /*
+        Below is what was given to us
+    */
 "<!--" {
     /**************************************************************************
      * Matched an HTML comment so print it out as a LateX comment. The
