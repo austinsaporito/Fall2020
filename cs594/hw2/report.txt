@@ -1,0 +1,36 @@
+Homework 2
+
+Austin Saporito
+
+9/15/20
+
+*all programs are in python and you should just have to run it with python3 "filename.py" 
+
+1.) downloaded in the directory
+
+2.) run it as python3 globalign.py in the same directory as the files
+
+3.) run it like above, and there is alot less "-" in the string but some it is also just the alignment from where the score was the highest
+
+4.) run it like above it is named egfalign.py
+
+5.) our two strings are different but I can only make the assumption that we had different mismatch and match and gap scores
+	considering that also out score is vastly different.
+
+	length: 1269
+
+	e-value: 4e-65
+
+	score: 
+
+	identity: 293/399(73%)
+
+6.) Culicidae with 104 hits
+
+	organsism: Anopheles gambiae str. PEST	
+	Blast name: mosquitos
+	score: 3644	
+	number of hits: 6
+
+7.) run in the same dir as the files and is named egflinear.py and its score was the same 620
+

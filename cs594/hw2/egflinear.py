@@ -4,9 +4,7 @@
 
 def main():
     humanfile="human_mito.fasta"
-    #muskitofile="test1"
     muskitofile="neander_sample.fasta"
-    #humanfile="test2"
 
     with open(humanfile,"r") as hf:
         hf.readline()
@@ -19,8 +17,6 @@ def main():
     humangenome=humangenome.replace("\n","")
     muskitogenome=muskitogenome.replace("\n","")
 
-    #humangenome=humangenome[:123]
-    #muskitogenome=muskitogenome[:123]
 
     columnmatrix=[None]*(len(humangenome)+2)
 
@@ -72,19 +68,12 @@ def main():
             if j == len(rowmatrix)-1:
                 if outermatrix[1][j-1] >= biggestcolumn:
                     biggestcolumn=outermatrix[1][j-1]
-                    #print(biggestcolumn)
             if i == len(columnmatrix)-1:
                 if outermatrix[1][j-1] >= biggestrow:
                     biggestrow=outermatrix[1][j-1]
-                    #print(biggestrow)
         outermatrix[0]=outermatrix[1].copy()
         for k in range(len(outermatrix[0])):
             outermatrix[1][k]=0
-        #print(outermatrix[0])
-        #print(outermatrix[1])
-        #print()
-        #if i == 5:
-        #    exit()
 
 
     if biggestrow > biggestcolumn:
