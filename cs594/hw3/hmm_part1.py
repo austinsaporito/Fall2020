@@ -15,18 +15,22 @@ def main():
 	swap="fair"
 	traceback=""
 	flag=0
+	selffair=.95
+	selfswap=.05
+	loadedswap=.1
+	selfloaded=.9
 	for i in range(300):
-		switch=random.randint(0,100)
+		switch=random.random()
 		number=random.random()	
-		if switch <=5 and flag==1:
+		if switch <=.1 and flag==1:
 			if swap=="loaded":
 				swap="fair"
-			elif swap == "fair":
+			if swap == "fair" and switch <=.05:
 				swap="loaded"
 			
 		flag=1
 		if swap == "loaded":
-			traceback+="l"
+			traceback+="L"
 			if number <= 1 and number >.5:
 				diceroll.append(6)
 			if number <= 5/10 and number >4/10:
@@ -40,7 +44,7 @@ def main():
 			elif number <= 1/10 and number >=0:
 				diceroll.append(1)
 		elif swap == "fair":
-			traceback+="f"
+			traceback+="F"
 			if number <= 1 and number >(5/6):
 				diceroll.append(6)
 			if number <= (5/6) and number >(4/6):

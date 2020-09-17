@@ -1,11 +1,10 @@
 #!/usr/bin/python3
 
 import random
+def equation(prevtop, prevbot, chance,probtop,probbot):
 
-def equation(prevtop, prevbot, chance):
-
-	top=(prevtop *.95 * chance) 
-	bottom=(prevbot * .05 * chance)
+	top=(prevtop * probtop * chance) 
+	bottom=(prevbot * probbot * chance)
 
 	return top,bottom
 
@@ -28,8 +27,14 @@ def prob(file):
 	loadedstr="F"
 	fairtop=0
 	loadedtop=0
-	for i in range(1,len(matrix)):
-		top,bottom=equation(matrix[i-1][0],matrix[i-1][1],regular)
+
+	selffair=.95
+	selfswap=.05
+	loadedswap=.1
+	selfloaded=.9
+
+	for i in range(1, len(matrix)):
+		top,bottom=equation(matrix[i-1][0],matrix[i-1][1],regular,selffair,loadedswap)
 		if top > bottom:
 			fairtop=top
 			matrix[i][0]=top
@@ -38,28 +43,27 @@ def prob(file):
 			fairtop=bottom
 			matrix[i][0]=bottom
 			fairstr+="L"
-
+		
 		if rolls[i-1] is "6":
-			top2,bottom2=equation(matrix[i-1][1],matrix[i-1][0],loaded6)
+			top2,bottom2=equation(matrix[i-1][1],matrix[i-1][0],loaded6,selfloaded,selfswap)
 			if top2 > bottom2:
 				loadedtop=top2
 				matrix[i][1]=top2
-				loadedstr+="F"
+				loadedstr+="L"
 			elif bottom2 > top2:
 				loadedtop=bottom2
 				matrix[i][1]=bottom2
-				loadedstr+="L"
+				loadedstr+="F"
 		else:
-			top2,bottom2=equation(matrix[i-1][1],matrix[i-1][0],loadednum)
+			top2,bottom2=equation(matrix[i-1][1],matrix[i-1][0],loadednum,selfloaded,selfswap)
 			if top2 > bottom2:
 				loadedtop=top2
 				matrix[i][1]=top2
-				loadedstr+="F"
+				loadedstr+="L"
 			elif bottom2 > top2:
 				loadedtop=bottom2
 				matrix[i][1]=bottom2
-				loadedstr+="L"
-
+				loadedstr+="F"
 		
 
 	if matrix[-1][1]>matrix[-1][0]:

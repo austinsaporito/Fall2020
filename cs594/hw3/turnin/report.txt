@@ -1,0 +1,19 @@
+Austin Saporito
+
+Homework 3
+
+* all programs are in python you can run it by doing "python3 filename.py"
+
+1.) run hmm_part1.py and on std out it will give you the rolls and the fair to loaded traceback
+
+2.) downloaded them
+
+3.) run hw3_part3.py and the the first probability is for the first file and the second probability is for the second file
+
+4.) run hw3_part4.py first string is for the first file and second string is for the second file
+
+5.) downloaded
+
+6.) downloaded
+
+7.) given 
