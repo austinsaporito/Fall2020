@@ -4,7 +4,10 @@ import random
 
 def equation(prevtop, prevbot, chance):
 
-	return (prevtop *.95 * chance) + (prevbot * .05 * chance)
+	top=(prevtop *.95 * chance) 
+	bottom=(prevbot * .05 * chance)
+
+	return top,bottom
 
 def prob(file):
 
@@ -21,15 +24,49 @@ def prob(file):
 	
 	matrix[0][0]=1
 	matrix[0][1]=0
+	fairstr="F"
+	loadedstr="F"
+	fairtop=0
+	loadedtop=0
 	for i in range(1,len(matrix)):
-		matrix[i][0]=equation(matrix[i-1][0],matrix[i-1][1],regular)
+		top,bottom=equation(matrix[i-1][0],matrix[i-1][1],regular)
+		if top > bottom:
+			fairtop=top
+			matrix[i][0]=top
+			fairstr+="F"
+		elif bottom > top:
+			fairtop=bottom
+			matrix[i][0]=bottom
+			fairstr+="L"
 
 		if rolls[i-1] is "6":
-			matrix[i][1]=equation(matrix[i-1][1],matrix[i-1][0],loaded6)
+			top2,bottom2=equation(matrix[i-1][1],matrix[i-1][0],loaded6)
+			if top2 > bottom2:
+				loadedtop=top2
+				matrix[i][1]=top2
+				loadedstr+="F"
+			elif bottom2 > top2:
+				loadedtop=bottom2
+				matrix[i][1]=bottom2
+				loadedstr+="L"
 		else:
-			matrix[i][1]=equation(matrix[i-1][1],matrix[i-1][0],loadednum)
+			top2,bottom2=equation(matrix[i-1][1],matrix[i-1][0],loadednum)
+			if top2 > bottom2:
+				loadedtop=top2
+				matrix[i][1]=top2
+				loadedstr+="F"
+			elif bottom2 > top2:
+				loadedtop=bottom2
+				matrix[i][1]=bottom2
+				loadedstr+="L"
 
-	print(matrix[-1][1]+matrix[-1][0])
+		
+
+	if matrix[-1][1]>matrix[-1][0]:
+		print("printing loaded",loadedstr)
+	else:
+		print("printing fair",fairstr)
+	print()
 
 def main():
 
