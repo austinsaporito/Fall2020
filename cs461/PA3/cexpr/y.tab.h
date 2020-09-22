@@ -42,7 +42,8 @@
      NUM = 258,
      VAR = 259,
      DUMP = 260,
-     CLEAR = 261
+     CLEAR = 261,
+     ERR = 262
    };
 #endif
 /* Tokens.  */
@@ -50,6 +51,7 @@
 #define VAR 259
 #define DUMP 260
 #define CLEAR 261
+#define ERR 262
 
 
 
@@ -61,7 +63,7 @@ typedef union YYSTYPE
   int num;
 }
 /* Line 1529 of yacc.c.  */
-#line 65 "y.tab.h"
+#line 67 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
