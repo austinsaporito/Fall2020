@@ -4,4 +4,8 @@
 %%
 [0-9]+    { sscanf(yytext, "%d", &yylval.num);
             return NUM; }
-.         { return yytext[0]; }
+[a-z]     { yylval.num = *yytext - 'a';
+            return VAR; }
+[ \n]+    
+.         {return yytext[0];}
+
