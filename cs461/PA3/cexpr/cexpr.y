@@ -196,6 +196,7 @@ mul_div_expr:  neg_not_expr
                               error=1;
                               printf("dividebyzero\n");
                            }
+						}
                      }
       |  mul_div_expr '%' neg_not_expr    
                      {
@@ -203,9 +204,10 @@ mul_div_expr:  neg_not_expr
                            if($3!=0){
                               $$=$1%$3;
                            }else{
-                            error=1;
-                              printf("dividebyzero\n");
+	                          error=1;
+	                          printf("dividebyzero\n");
                            }
+						}
                      }
       ;
 

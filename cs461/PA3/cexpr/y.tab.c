@@ -76,99 +76,96 @@ extern int YYPARSE_DECL();
 #define YYERRCODE 256
 static const short yylhs[] = {                           -1,
     0,    0,    9,    9,    9,    1,    2,    2,    2,    2,
-    2,    2,    2,    2,    2,    2,    2,    2,    3,    3,
-    3,    3,    4,    4,    4,    5,    5,    5,    6,    6,
-    6,    6,    7,    7,    7,    8,    8,    8,
+    2,    2,    2,    2,    2,    2,    2,    3,    3,    3,
+    3,    4,    4,    4,    5,    5,    5,    6,    6,    6,
+    6,    7,    7,    7,    8,    8,    8,
 };
 static const short yylen[] = {                            2,
     0,    2,    2,    2,    2,    1,    1,    3,    4,    4,
-    4,    4,    4,    5,    5,    4,    4,    4,    1,    3,
-    3,    3,    1,    4,    4,    1,    3,    3,    1,    3,
-    3,    3,    1,    2,    2,    3,    1,    1,
+    4,    4,    4,    5,    4,    4,    4,    1,    3,    3,
+    3,    1,    4,    4,    1,    3,    3,    1,    3,    3,
+    3,    1,    2,    2,    3,    1,    1,
 };
 static const short yydefred[] = {                         1,
-    0,   38,    0,    0,    0,    0,    0,    0,    0,    6,
-    0,    0,    0,    0,   29,   33,    2,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    4,    5,
-   37,   34,   35,    0,    3,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    8,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,   36,    0,    0,    0,
-    0,    0,    0,    0,   30,   31,   32,    9,   10,   11,
-   12,   13,    0,    0,   16,   17,   18,    0,    0,   14,
-   15,
+    0,   37,    0,    0,    0,    0,    0,    0,    0,    6,
+    0,    0,    0,    0,   28,   32,    2,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    4,    5,   36,
+   33,   34,    0,    3,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    8,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,   35,    0,    0,    0,    0,    0,
+    0,    0,   29,   30,   31,    9,   10,   11,   12,   13,
+    0,   15,   16,   17,    0,    0,   14,
 };
 static const short yydgoto[] = {                          1,
     9,   10,   11,   12,   13,   14,   15,   16,   17,
 };
 static const short yysindex[] = {                         0,
   -40,    0,  -25,  -52,  -49,  -32,  -32,  -36,  -28,    0,
-   -9,  -46,  -20,   17,    0,    0,    0,  -36,  -42,   -1,
-    7,   26,   32,   -8,    4,   47,   49,   50,    0,    0,
-    0,    0,    0,   71,    0,  -34,  -34,  -34,   58,   55,
-  -34,  -34,  -34,  -34,  -34,    0,  -36,  -36,  -36,  -36,
-  -36,   59,   61,  -36,  -36,  -36,    0,  -46,  -46,  -46,
-  -34,  -34,   17,   17,    0,    0,    0,    0,    0,    0,
-    0,    0,  -36,  -36,    0,    0,    0,  -20,  -20,    0,
-    0,
+   -9,  -46,  -20,   17,    0,    0,    0,  -36,  -42,   -5,
+   -1,    5,    7,  -27,   26,   32,   40,    0,    0,    0,
+    0,    0,   11,    0,  -34,  -34,  -34,  -22,   50,  -34,
+  -34,  -34,  -34,  -34,    0,  -36,  -36,  -36,  -36,  -36,
+   51,  -36,  -36,  -36,    0,  -46,  -46,  -46,  -34,  -34,
+   17,   17,    0,    0,    0,    0,    0,    0,    0,    0,
+  -36,    0,    0,    0,  -20,  -20,    0,
 };
 static const short yyrindex[] = {                         0,
-    0,    0,  -26,    0,    0,    0,    0,    0,    0,    0,
-   -3,   35,    3,  -17,    0,    0,    0,    0,    0,    0,
+    0,    0,   59,    0,    0,    0,    0,    0,    0,    0,
+  -26,   35,    3,  -17,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,   37,   43,   57,
-    0,    0,  -11,   12,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,   20,   29,    0,
-    0,
+    0,    0,    0,    0,    0,   37,   43,   57,    0,    0,
+  -11,   12,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,   20,   29,    0,
 };
 static const short yygindex[] = {                         0,
-  111,   91,    0,  -35,  -22,    5,   60,   94,    0,
+  109,   93,    0,   68,  -21,    6,  -41,  102,    0,
 };
 #define YYTABLESIZE 226
 static const short yytable[] = {                          8,
-   58,   59,   60,    8,    6,    8,   29,    8,    6,   30,
-    6,   23,   26,   39,   37,   40,   21,   19,   47,   20,
-   26,   22,   41,   26,   42,   26,   27,   26,   36,   27,
-   35,   27,   37,   27,   24,   18,   25,    7,   78,   79,
-   23,   26,   26,   23,   26,   63,   64,   27,   27,   28,
-   27,   52,   28,   45,   28,    7,   28,   24,   43,   48,
-   24,   23,   23,   44,   23,   53,   25,   49,   27,   25,
-   28,   28,   19,   28,   20,   19,   26,   20,   24,   24,
-   21,   24,   27,   21,   37,    7,   50,   25,   25,    7,
-   25,    7,   51,   19,   22,   20,   23,   22,   28,   32,
-   33,   21,   65,   66,   67,   28,   26,   54,   46,   55,
-   56,   57,   27,   24,   38,   22,   62,   61,   34,   73,
-    0,   74,   25,    0,    0,    0,   23,    0,   19,    0,
-   20,    0,    0,    0,    0,   28,   21,   68,   69,   70,
-   71,   72,    0,   24,   75,   76,   77,    0,    0,    0,
-   22,    0,   25,    0,    0,    0,    0,    0,   19,    0,
-   20,    0,    0,   80,   81,    0,   21,    0,    0,    0,
+   63,   64,   65,    8,    6,    8,   28,    8,    6,   29,
+    6,   23,   25,   39,    7,   38,   21,   19,   46,   20,
+   25,   22,   40,   25,   41,   25,   26,   25,   35,   26,
+   34,   26,    7,   26,   51,   18,   24,   75,   76,   59,
+   22,   25,   25,   22,   25,   61,   62,   26,   26,   27,
+   26,   55,   27,   44,   27,   47,   27,   24,   42,   48,
+   24,   22,   22,   43,   22,   49,   23,   50,   26,   23,
+   27,   27,   18,   27,   19,   18,   25,   19,   24,   24,
+   20,   24,   26,   20,   36,    7,   52,   23,   23,    7,
+   23,    7,   53,   18,   21,   19,   22,   21,   27,   36,
+   54,   20,   56,   57,   58,   27,   25,   31,   32,   60,
+   45,   71,   26,   24,   37,   21,   33,   36,   36,    0,
+    0,    0,   23,    0,    0,    0,   22,    0,   18,    0,
+   19,    0,    0,    0,    0,   27,   20,    0,   66,   67,
+   68,   69,   70,   24,   72,   73,   74,    0,    0,    0,
+   21,    0,   23,    0,    0,    0,    0,    0,   18,    0,
+   19,    0,    0,   77,    0,    0,   20,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-   22,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+   21,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    2,    3,    4,    5,
-    2,    3,    2,   31,    2,   31,
+    2,    3,    2,   30,    2,   30,
 };
 static const short yycheck[] = {                         40,
-   36,   37,   38,   40,   45,   40,   59,   40,   45,   59,
+   42,   43,   44,   40,   45,   40,   59,   40,   45,   59,
    45,   37,   38,   60,   41,   62,   42,   43,   61,   45,
    38,   47,   43,   41,   45,   43,   38,   45,   38,   41,
-   59,   43,   59,   45,   60,   61,   62,   41,   61,   62,
-   38,   59,   60,   41,   62,   41,   42,   59,   60,   38,
-   62,   60,   41,   37,   43,   59,   45,   38,   42,   61,
-   41,   59,   60,   47,   62,   62,   38,   61,   94,   41,
+   59,   43,   59,   45,   62,   61,   62,   59,   60,   62,
+   38,   59,   60,   41,   62,   40,   41,   59,   60,   38,
+   62,   41,   41,   37,   43,   61,   45,   38,   42,   61,
+   41,   59,   60,   47,   62,   61,   38,   61,   94,   41,
    59,   60,   38,   62,   38,   41,   94,   41,   59,   60,
    38,   62,   94,   41,   94,  126,   61,   59,   60,  126,
-   62,  126,   61,   59,   38,   59,   94,   41,  124,    6,
-    7,   59,   43,   44,   45,   94,  124,   61,   18,   61,
-   61,   41,  124,   94,  124,   59,   62,   60,    8,   61,
-   -1,   61,   94,   -1,   -1,   -1,  124,   -1,   94,   -1,
-   94,   -1,   -1,   -1,   -1,  124,   94,   47,   48,   49,
-   50,   51,   -1,  124,   54,   55,   56,   -1,   -1,   -1,
+   62,  126,   61,   59,   38,   59,   94,   41,  124,   41,
+   61,   59,   35,   36,   37,   94,  124,    6,    7,   60,
+   18,   61,  124,   94,  124,   59,    8,   59,   60,   -1,
+   -1,   -1,   94,   -1,   -1,   -1,  124,   -1,   94,   -1,
+   94,   -1,   -1,   -1,   -1,  124,   94,   -1,   46,   47,
+   48,   49,   50,  124,   52,   53,   54,   -1,   -1,   -1,
    94,   -1,  124,   -1,   -1,   -1,   -1,   -1,  124,   -1,
-  124,   -1,   -1,   73,   74,   -1,  124,   -1,   -1,   -1,
+  124,   -1,   -1,   71,   -1,   -1,  124,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
   124,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -208,7 +205,6 @@ static const char *yyrule[] = {
 "equal : VAR '*' '=' equal",
 "equal : VAR '/' '=' equal",
 "equal : VAR '%' '=' equal",
-"equal : VAR '<' '<' '=' equal",
 "equal : VAR '>' '>' '=' equal",
 "equal : VAR '&' '=' equal",
 "equal : VAR '^' '=' equal",
@@ -270,7 +266,7 @@ typedef struct {
 } YYSTACKDATA;
 /* variables for the parser stack */
 static YYSTACKDATA yystack;
-#line 224 "cexpr.y"
+#line 225 "cexpr.y"
 
 
 int main()
@@ -306,7 +302,7 @@ void clear(){
    }
    return;
 }
-#line 309 "y.tab.c"
+#line 305 "y.tab.c"
 
 #if YYDEBUG
 #include <stdio.h>		/* needed for printf */
@@ -570,38 +566,33 @@ break;
 case 12:
 #line 88 "cexpr.y"
 	{
-                        if(error==0 && yystack.l_mark[0].num!=0){
-                           alphabet[yystack.l_mark[-3].var]/=yystack.l_mark[0].num; 
-                           yyval.num=alphabet[yystack.l_mark[-3].var];
-                        }else{
-                           error=1;
-                           printf("dividebyzero\n");
+                        if(error==0){
+                           if(yystack.l_mark[0].num!=0){
+                              alphabet[yystack.l_mark[-3].var]/=yystack.l_mark[0].num; 
+                              yyval.num=alphabet[yystack.l_mark[-3].var];
+                           }else{
+                              error=1;
+                              printf("dividebyzero\n");
+                           }
                         }
                      }
 break;
 case 13:
-#line 98 "cexpr.y"
+#line 100 "cexpr.y"
 	{
-                        if(yystack.l_mark[0].num!=0 && error==0){
-                           alphabet[yystack.l_mark[-3].var]%=yystack.l_mark[0].num; 
-                           yyval.num=alphabet[yystack.l_mark[-3].var];
-                        }else{
-                           error=1;
-                           printf("dividebyzero\n");
+                        if(error==0){
+                           if(yystack.l_mark[0].num!=0){
+                              alphabet[yystack.l_mark[-3].var]%=yystack.l_mark[0].num; 
+                              yyval.num=alphabet[yystack.l_mark[-3].var];
+                           }else{
+                              error=1;
+                              printf("dividebyzero\n");
+                           }
                         }
                      }
 break;
 case 14:
-#line 108 "cexpr.y"
-	{
-                        if(error==0){
-                           alphabet[yystack.l_mark[-4].var]<<=yystack.l_mark[0].num; 
-                           yyval.num=alphabet[yystack.l_mark[-4].var];
-                        }
-                     }
-break;
-case 15:
-#line 115 "cexpr.y"
+#line 112 "cexpr.y"
 	{
                         if(error==0){
                            alphabet[yystack.l_mark[-4].var]>>=yystack.l_mark[0].num; 
@@ -609,8 +600,8 @@ case 15:
                         }
                      }
 break;
-case 16:
-#line 122 "cexpr.y"
+case 15:
+#line 119 "cexpr.y"
 	{
                         if(error==0){
                            alphabet[yystack.l_mark[-3].var]&=yystack.l_mark[0].num; 
@@ -618,8 +609,8 @@ case 16:
                         }
                      }
 break;
-case 17:
-#line 129 "cexpr.y"
+case 16:
+#line 126 "cexpr.y"
 	{
                         if(error==0){
                            alphabet[yystack.l_mark[-3].var]^=yystack.l_mark[0].num; 
@@ -627,8 +618,8 @@ case 17:
                         }
                      }
 break;
-case 18:
-#line 136 "cexpr.y"
+case 17:
+#line 133 "cexpr.y"
 	{
                         if(error==0){
                            alphabet[yystack.l_mark[-3].var]|=yystack.l_mark[0].num; 
@@ -636,28 +627,28 @@ case 18:
                         }
                      }
 break;
-case 20:
-#line 145 "cexpr.y"
+case 19:
+#line 142 "cexpr.y"
 	{if(error==0) yyval.num=yystack.l_mark[-2].num & yystack.l_mark[0].num;}
 break;
-case 21:
-#line 146 "cexpr.y"
+case 20:
+#line 143 "cexpr.y"
 	{if(error==0) yyval.num=yystack.l_mark[-2].num ^ yystack.l_mark[0].num;}
 break;
-case 22:
-#line 147 "cexpr.y"
+case 21:
+#line 144 "cexpr.y"
 	{if(error==0) yyval.num=yystack.l_mark[-2].num | yystack.l_mark[0].num;}
 break;
-case 24:
-#line 151 "cexpr.y"
+case 23:
+#line 148 "cexpr.y"
 	{if(error==0) yyval.num=yystack.l_mark[-3].num<<yystack.l_mark[0].num;}
 break;
-case 25:
-#line 152 "cexpr.y"
+case 24:
+#line 149 "cexpr.y"
 	{if(error==0) yyval.num=yystack.l_mark[-3].num>>yystack.l_mark[0].num;}
 break;
-case 27:
-#line 157 "cexpr.y"
+case 26:
+#line 154 "cexpr.y"
 	{
                         if(error==0){
                            if(yystack.l_mark[0].num<0){
@@ -674,12 +665,12 @@ case 27:
                         }
                      }
 break;
-case 28:
-#line 172 "cexpr.y"
+case 27:
+#line 169 "cexpr.y"
 	{yyval.num = yystack.l_mark[-2].num - yystack.l_mark[0].num;}
 break;
-case 30:
-#line 177 "cexpr.y"
+case 29:
+#line 174 "cexpr.y"
 	{
                         if(error==0){
                            if(yystack.l_mark[0].num<0){
@@ -697,49 +688,53 @@ case 30:
                         }
                      }
 break;
+case 30:
+#line 191 "cexpr.y"
+	{
+                        if(error ==0){
+                           if(yystack.l_mark[0].num!=0){
+                              yyval.num=yystack.l_mark[-2].num/yystack.l_mark[0].num;
+                           }else{
+                              error=1;
+                              printf("dividebyzero\n");
+                           }
+						}
+                     }
+break;
 case 31:
-#line 194 "cexpr.y"
+#line 202 "cexpr.y"
 	{
-                        if(yystack.l_mark[0].num!=0 && error ==0){
-                           yyval.num=yystack.l_mark[-2].num/yystack.l_mark[0].num;
-                        }else{
-                           error=1;
-                           printf("dividebyzero\n");
-                        }
+                        if(error ==0){
+                           if(yystack.l_mark[0].num!=0){
+                              yyval.num=yystack.l_mark[-2].num%yystack.l_mark[0].num;
+                           }else{
+	                          error=1;
+	                          printf("dividebyzero\n");
+                           }
+						}
                      }
 break;
-case 32:
-#line 203 "cexpr.y"
-	{
-                        if(yystack.l_mark[0].num!=0 && error ==0){
-                           yyval.num=yystack.l_mark[-2].num%yystack.l_mark[0].num;
-                        }else{
-                           error=1;
-                           printf("dividebyzero\n");
-                        }
-                     }
-break;
-case 34:
-#line 214 "cexpr.y"
+case 33:
+#line 215 "cexpr.y"
 	{if(error==0) yyval.num = -yystack.l_mark[0].num;}
 break;
-case 35:
-#line 215 "cexpr.y"
+case 34:
+#line 216 "cexpr.y"
 	{if(error==0) yyval.num =~yystack.l_mark[0].num;}
 break;
-case 36:
-#line 218 "cexpr.y"
+case 35:
+#line 219 "cexpr.y"
 	{ if(error==0) yyval.num = yystack.l_mark[-1].num; }
 break;
-case 37:
-#line 219 "cexpr.y"
+case 36:
+#line 220 "cexpr.y"
 	{ if(error==0) yyval.num = alphabet[yystack.l_mark[0].var]; }
 break;
-case 38:
-#line 220 "cexpr.y"
+case 37:
+#line 221 "cexpr.y"
 	{ if(error==0) yyval.num = yystack.l_mark[0].num; }
 break;
-#line 742 "y.tab.c"
+#line 737 "y.tab.c"
     }
     yystack.s_mark -= yym;
     yystate = *yystack.s_mark;
