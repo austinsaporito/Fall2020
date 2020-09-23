@@ -2,13 +2,25 @@
 #include "y.tab.h"
 %}
 %%
-[0-9]+    { sscanf(yytext, "%d", &yylval.num);
-            return NUM; }
-[a-z]     { yylval.num = *yytext - 'a';
-            return VAR; }
-[ \n]+     
 
-"dump"      {return DUMP;}
-"clear"     {return CLEAR;}
-.         {return yytext[0];}
+[ \t\n]     ; 
+
+[0-9]+|[0-9]*\.[0-9]+  { 
+            sscanf(yytext, "%d", &yylval.num);
+            return NUM; 
+        }
+[a-z]    { 
+            printf("%c",*yytext);
+            yylval.num = *yytext - 'a';
+            return VAR; 
+        }
+
+
+
+
+.      { printf("%c",*yytext); return yytext[0]; }
+
+dump   { return DUMP; }
+
+clear  { return CLEAR; }
 

@@ -59,9 +59,10 @@ typedef union YYSTYPE
 #line 9 "cexpr.y"
 {
   int num;
+  char var;
 }
 /* Line 1529 of yacc.c.  */
-#line 65 "y.tab.h"
+#line 66 "y.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
