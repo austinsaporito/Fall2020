@@ -745,22 +745,22 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 10 "scan.l"
+#line 11 "scan.l"
 {return DUMP;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 11 "scan.l"
+#line 12 "scan.l"
 {return CLEAR;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 12 "scan.l"
+#line 13 "scan.l"
 {return yytext[0];}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 14 "scan.l"
+#line 15 "scan.l"
 ECHO;
 	YY_BREAK
 #line 767 "lex.yy.c"
@@ -1760,4 +1760,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 14 "scan.l"
+#line 15 "scan.l"

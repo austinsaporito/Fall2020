@@ -14,7 +14,6 @@
 %token <num> VAR
 %token <string>DUMP
 %token <string>CLEAR
-%token <string>ERR
 
   
 %type <num> add_sub_expr
@@ -31,7 +30,7 @@
    int alphabet[26] = {0};
    int max = 2147483647;
    int flag=0;
-   temp=0;
+   int temp=0;
    void dump();
    void clear();
 
@@ -101,24 +100,23 @@ shift_expr  :  shift_expr '<''<' shift_expr {$$=$1<<$4;}
       |  add_sub_expr           { $$ = $1; }
       ;
 
-add_sub_expr	:	
-      |  add_sub_expr '+' add_sub_expr   {if($3<0)
-                                             temp=(-$3);
-                                           else
-                                             temp=$3;
-                                           if($1 <= max - temp){
-                                             $$ = $1 + $3; 
-                                           }else{
-                                             printf("overflow\n");
-                                             flag=1;
-                                           }
-                                          }
-      |  add_sub_expr '-' add_sub_expr   {$$ = $1 - $3;}
+add_sub_expr : add_sub_expr '+' add_sub_expr   {if($3<0){
+                                                   temp=(-$3);
+                                                }else{
+                                                   temp=$3;
+                                                }
+                                                if($1 <= max - temp){
+                                                   $$ = $1 + $3; 
+                                                }else{
+                                                   printf("overflow\n");
+                                                   flag=1;
+                                                }
+                                                }     
+      |  add_sub_expr '-' add_sub_expr   {$$ = $1 - $3; printf("$");}
 	   |	mul_div_expr                 { $$ = $1; }
 	   ;
 
-mul_div_expr :  
-      |  mul_div_expr '*' mul_div_expr    {if($3<0)
+mul_div_expr :  mul_div_expr '*' mul_div_expr    {if($3<0)
                                              temp=(-$3);
                                             else
                                              temp=$3;
@@ -154,11 +152,11 @@ neg_not_expr : '-' neg_not_expr {$$ = -$2;}
       ;
 
 pren  :  '(' logic_expr ')'   {$$=$2;}
-      |  val            {$$=$1;}
+      |  val             {$$=$1;}
       ;
 
- val  :  NUM             { $$ = $1; }
-      |  VAR             { $$ = alphabet[$1]; }
+val   :  NUM             { $$ = $1; }
+      |  VAR             { $$ = alphabet[$1];}
       ;
 
 %%
