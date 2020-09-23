@@ -57,24 +57,32 @@ expr: equal
 
 equal: logic_expr 
       |  VAR '=' equal  
-                     { 
-                        alphabet[$1] = $3; 
-                        $$=alphabet[$1]; 
+                     {
+                        if(error==0){
+                           alphabet[$1] = $3; 
+                           $$=alphabet[$1]; 
+                        }
                      }
       |  VAR '+''=' equal 
                      {
-                        alphabet[$1]+=$4;
-                        $$=alphabet[$1];
+                        if(error==0){
+                           alphabet[$1]+=$4;
+                           $$=alphabet[$1];
+                        }
                      }
       |  VAR '-''=' equal 
                      {
-                        alphabet[$1]-=$4; 
-                        $$=alphabet[$1];
+                        if(error==0){
+                           alphabet[$1]-=$4; 
+                           $$=alphabet[$1];
+                        }
                      }
       |  VAR '*''=' equal 
                      {
-                        alphabet[$1]*=$4; 
-                        $$=alphabet[$1];
+                        if(error==0){
+                           alphabet[$1]*=$4; 
+                           $$=alphabet[$1];
+                        }
                      }
       |  VAR '/''=' equal 
                      {
@@ -98,55 +106,67 @@ equal: logic_expr
                      }                 
       |  VAR '<''<''=' equal 
                      {
-                        alphabet[$1]<<=$5; 
-                        $$=alphabet[$1];
+                        if(error==0){
+                           alphabet[$1]<<=$5; 
+                           $$=alphabet[$1];
+                        }
                      }
       |  VAR '>''>''=' equal 
                      {
-                        alphabet[$1]>>=$5; 
-                        $$=alphabet[$1];
+                        if(error==0){
+                           alphabet[$1]>>=$5; 
+                           $$=alphabet[$1];
+                        }
                      }
       |  VAR '&''=' equal 
                      {
-                        alphabet[$1]&=$4; 
-                        $$=alphabet[$1];
+                        if(error==0){
+                           alphabet[$1]&=$4; 
+                           $$=alphabet[$1];
+                        }
                      }
       |  VAR '^''=' equal 
                      {
-                        alphabet[$1]^=$4; 
-                        $$=alphabet[$1];
+                        if(error==0){
+                           alphabet[$1]^=$4; 
+                           $$=alphabet[$1];
+                        }
                      }
       |  VAR '|''=' equal 
                      {
-                        alphabet[$1]|=$4; 
-                        $$=alphabet[$1];
+                        if(error==0){
+                           alphabet[$1]|=$4; 
+                           $$=alphabet[$1];
+                        }
                      }
       ;
 
 logic_expr: shift_expr
-      |  logic_expr '&' shift_expr {$$=$1 & $3;}
-      |  logic_expr '^' shift_expr  {$$=$1 ^ $3;}
-      |  logic_expr '|' shift_expr  {$$=$1 | $3;}
+      |  logic_expr '&' shift_expr {if(error==0) $$=$1 & $3;}
+      |  logic_expr '^' shift_expr  {if(error==0) $$=$1 ^ $3;}
+      |  logic_expr '|' shift_expr  {if(error==0) $$=$1 | $3;}
       ;
 
 shift_expr: add_sub_expr
-      | shift_expr '<''<' add_sub_expr {$$=$1<<$4;}
-      |  shift_expr '>''>' add_sub_expr {$$=$1>>$4;}
+      | shift_expr '<''<' add_sub_expr {if(error==0) $$=$1<<$4;}
+      |  shift_expr '>''>' add_sub_expr {if(error==0) $$=$1>>$4;}
       ;
 
 add_sub_expr: mul_div_expr
       |  add_sub_expr '+' mul_div_expr   
                      {
-                        if($3<0){
-                           temp=(-$3);
-                        }else{
-                           temp=$3;
-                        }
-                        if($1 <= max - temp){
-                           $$ = $1 + $3; 
-                        }else{
-                           printf("overflow\n");
-                           error=1;
+                        if(error==0){
+                           if($3<0){
+                              temp=(-$3);
+                           }else{
+                              temp=$3;
+                           }
+                           if($1 <= max - temp){
+                              $$ = $1 + $3; 
+                           }else{
+                              printf("overflow\n");
+                              error=1;
+                           }
                         }
                      }     
       |  add_sub_expr '-' mul_div_expr   {$$ = $1 - $3;}
@@ -155,17 +175,19 @@ add_sub_expr: mul_div_expr
 mul_div_expr:  neg_not_expr
       |  mul_div_expr '*' neg_not_expr    
                      {
-                        if($3<0){
-                           temp=(-$3);
-                        }else{
-                           temp=($3);
-                        }
-                        if($3==0){
-                           $$=0;
-                        }else if($1 <= max / temp){
-                           $$ = $1 * $3; 
-                        }else{
-                           printf("overflow\n");
+                        if(error==0){
+                           if($3<0){
+                              temp=(-$3);
+                           }else{
+                              temp=($3);
+                           }
+                           if($3==0){
+                              $$=0;
+                           }else if($1 <= max / temp){
+                              $$ = $1 * $3; 
+                           }else{
+                              printf("overflow\n");
+                           }
                         }
                      }
       |  mul_div_expr '/' neg_not_expr    
@@ -189,13 +211,13 @@ mul_div_expr:  neg_not_expr
       ;
 
 neg_not_expr: pren
-      |  '-' pren {$$ = -$2;} 
-      |  '~' pren  {$$ =~$2;}
+      |  '-' pren {if(error==0) $$ = -$2;} 
+      |  '~' pren {if(error==0) $$ =~$2;}
       ;
 
-pren:   '(' expr ')'      { $$ = $2; }
-      |  VAR               { $$ = alphabet[$1]; }
-      |  NUM               { $$ = $1; }
+pren:   '(' expr ')'      { if(error==0) $$ = $2; }
+      |  VAR               { if(error==0) $$ = alphabet[$1]; }
+      |  NUM               { if(error==0) $$ = $1; }
       ;
 
 %%
