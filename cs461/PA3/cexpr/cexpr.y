@@ -4,6 +4,12 @@
 
 %{
 #include <stdio.h>
+int alphabet[26];
+int max = 2147483647;
+void dump();
+void clear();
+int error=0;
+int temp=0;
 %}
 
 %union {
@@ -17,35 +23,35 @@
 %token CLEAR
 
   
+%type <num> expr
+%type <num> equal
+%type <num> logic_expr
+%type <num> shift_expr
 %type <num> add_sub_expr
 %type <num> mul_div_expr
 %type <num> neg_not_expr
-%type <num> logic_expr
-%type <num> shift_expr
 %type <num> pren
-%type <num> equal
-%type <num> expr
 
-%{
-   int alphabet[26];
-   int max = 2147483647;
-   void dump();
-   void clear();
 
-%}
 %%
    
 commands:
 	|	commands command
 	;
 
-command:expr  ';'     
+command:expr  ';'    
                      { 
-                        printf("%d\n", $1); 
+                        if(error!=0){
+                           printf("");
+                           error=0;
+                        }else{
+                           printf("%d\n", $1); 
+                        }
                      }
      |  DUMP  ';'   {dump();}
      |  CLEAR ';'   {clear();}
 	  ;
+
 expr: equal
       ;
 
@@ -72,19 +78,21 @@ equal: logic_expr
                      }
       |  VAR '/''=' equal 
                      {
-                        if($4!=0){
+                        if(error==0 && $4!=0){
                            alphabet[$1]/=$4; 
                            $$=alphabet[$1];
                         }else{
+                           error=1;
                            printf("dividebyzero\n");
                         }
                      }
       |  VAR '%''=' equal 
                      {
-                        if($4!=0){
+                        if($4!=0 && error==0){
                            alphabet[$1]%=$4; 
                            $$=alphabet[$1];
                         }else{
+                           error=1;
                            printf("dividebyzero\n");
                         }
                      }                 
@@ -129,8 +137,17 @@ shift_expr: add_sub_expr
 add_sub_expr: mul_div_expr
       |  add_sub_expr '+' mul_div_expr   
                      {
-                        printf("ahhhhhhhh");
-                        $$ = $1 + $3;
+                        if($3<0){
+                           temp=(-$3);
+                        }else{
+                           temp=$3;
+                        }
+                        if($1 <= max - temp){
+                           $$ = $1 + $3; 
+                        }else{
+                           printf("overflow\n");
+                           error=1;
+                        }
                      }     
       |  add_sub_expr '-' mul_div_expr   {$$ = $1 - $3;}
 	   ;
@@ -139,13 +156,13 @@ mul_div_expr:  neg_not_expr
       |  mul_div_expr '*' neg_not_expr    
                      {
                         if($3<0){
-                           printf("hi(:");
+                           temp=(-$3);
                         }else{
-                           printf("hi(:");
+                           temp=($3);
                         }
                         if($3==0){
                            $$=0;
-                        }else if($1 <= max / $3){
+                        }else if($1 <= max / temp){
                            $$ = $1 * $3; 
                         }else{
                            printf("overflow\n");
@@ -153,17 +170,19 @@ mul_div_expr:  neg_not_expr
                      }
       |  mul_div_expr '/' neg_not_expr    
                      {
-                        if($3!=0){
+                        if($3!=0 && error ==0){
                            $$=$1/$3;
                         }else{
+                           error=1;
                            printf("dividebyzero\n");
                         }
                      }
       |  mul_div_expr '%' neg_not_expr    
                      {
-                        if($3!=0){
+                        if($3!=0 && error ==0){
                            $$=$1%$3;
                         }else{
+                           error=1;
                            printf("dividebyzero\n");
                         }
                      }
@@ -171,12 +190,12 @@ mul_div_expr:  neg_not_expr
 
 neg_not_expr: pren
       |  '-' pren {$$ = -$2;} 
-      |  '~' pren  {$$=~$2;}
+      |  '~' pren  {$$ =~$2;}
       ;
 
-pren: VAR             { $$ = alphabet[$1]; }
-      |  '(' expr ')'   {$$=$2;}
-      |  NUM             { $$ = $1; }
+pren:   '(' expr ')'      { $$ = $2; }
+      |  VAR               { $$ = alphabet[$1]; }
+      |  NUM               { $$ = $1; }
       ;
 
 %%

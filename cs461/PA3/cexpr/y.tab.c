@@ -85,6 +85,12 @@
 #line 5 "cexpr.y"
 
 #include <stdio.h>
+int alphabet[26];
+int max = 2147483647;
+void dump();
+void clear();
+int error=0;
+int temp=0;
 
 
 /* Enabling traces.  */
@@ -107,13 +113,13 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 9 "cexpr.y"
+#line 15 "cexpr.y"
 {
   int num;
   char var;
 }
 /* Line 193 of yacc.c.  */
-#line 117 "y.tab.c"
+#line 123 "y.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -123,17 +129,10 @@ typedef union YYSTYPE
 
 
 /* Copy the second part of user declarations.  */
-#line 29 "cexpr.y"
-
-   int alphabet[26];
-   int max = 2147483647;
-   void dump();
-   void clear();
-
 
 
 /* Line 216 of yacc.c.  */
-#line 137 "y.tab.c"
+#line 136 "y.tab.c"
 
 #ifdef short
 # undef short
@@ -406,7 +405,7 @@ static const yytype_uint8 yyprhs[] =
        0,     0,     3,     4,     7,    10,    13,    16,    18,    20,
       24,    29,    34,    39,    44,    49,    55,    61,    66,    71,
       76,    78,    82,    86,    90,    92,    97,   102,   104,   108,
-     112,   114,   118,   122,   126,   128,   131,   134,   136,   140
+     112,   114,   118,   122,   126,   128,   131,   134,   138,   140
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
@@ -425,17 +424,17 @@ static const yytype_int8 yyrhs[] =
       29,    -1,    30,    -1,    29,     9,    30,    -1,    29,    10,
       30,    -1,    31,    -1,    30,    11,    31,    -1,    30,    12,
       31,    -1,    30,    13,    31,    -1,    32,    -1,    10,    32,
-      -1,    19,    32,    -1,     4,    -1,    20,    25,    21,    -1,
+      -1,    19,    32,    -1,    20,    25,    21,    -1,     4,    -1,
        3,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    38,    38,    39,    42,    46,    47,    49,    52,    53,
-      58,    63,    68,    73,    82,    91,    96,   101,   106,   111,
-     118,   119,   120,   121,   124,   125,   126,   129,   130,   135,
-     138,   139,   154,   162,   172,   173,   174,   177,   178,   179
+       0,    38,    38,    39,    42,    51,    52,    55,    58,    59,
+      64,    69,    74,    79,    89,    99,   104,   109,   114,   119,
+     126,   127,   128,   129,   132,   133,   134,   137,   138,   152,
+     155,   156,   171,   180,   191,   192,   193,   196,   197,   198
 };
 #endif
 
@@ -478,7 +477,7 @@ static const yytype_uint8 yyr2[] =
        0,     2,     0,     2,     2,     2,     2,     1,     1,     3,
        4,     4,     4,     4,     4,     5,     5,     4,     4,     4,
        1,     3,     3,     3,     1,     4,     4,     1,     3,     3,
-       1,     3,     3,     3,     1,     2,     2,     1,     3,     1
+       1,     3,     3,     3,     1,     2,     2,     3,     1,     1
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -486,12 +485,12 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     0,     1,    39,    37,     0,     0,     0,     0,     0,
+       2,     0,     1,    39,    38,     0,     0,     0,     0,     0,
        3,     0,     7,     8,    20,    24,    27,    30,    34,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       5,     6,    37,    35,    36,     0,     4,     0,     0,     0,
+       5,     6,    38,    35,    36,     0,     4,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     9,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,    38,    21,
+       0,     0,     0,     0,     0,     0,     0,     0,    37,    21,
       22,    23,     0,     0,    28,    29,    31,    32,    33,    10,
       11,    12,    13,    14,     0,     0,    17,    18,    19,    25,
       26,    15,    16
@@ -1387,22 +1386,27 @@ yyreduce:
         case 4:
 #line 43 "cexpr.y"
     { 
-                        printf("%d\n", (yyvsp[(1) - (2)].num)); 
+                        if(error!=0){
+                           printf("");
+                           error=0;
+                        }else{
+                           printf("%d\n", (yyvsp[(1) - (2)].num)); 
+                        }
                      }
     break;
 
   case 5:
-#line 46 "cexpr.y"
+#line 51 "cexpr.y"
     {dump();}
     break;
 
   case 6:
-#line 47 "cexpr.y"
+#line 52 "cexpr.y"
     {clear();}
     break;
 
   case 9:
-#line 54 "cexpr.y"
+#line 60 "cexpr.y"
     { 
                         alphabet[(yyvsp[(1) - (3)].var)] = (yyvsp[(3) - (3)].num); 
                         (yyval.num)=alphabet[(yyvsp[(1) - (3)].var)]; 
@@ -1410,7 +1414,7 @@ yyreduce:
     break;
 
   case 10:
-#line 59 "cexpr.y"
+#line 65 "cexpr.y"
     {
                         alphabet[(yyvsp[(1) - (4)].var)]+=(yyvsp[(4) - (4)].num);
                         (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)];
@@ -1418,7 +1422,7 @@ yyreduce:
     break;
 
   case 11:
-#line 64 "cexpr.y"
+#line 70 "cexpr.y"
     {
                         alphabet[(yyvsp[(1) - (4)].var)]-=(yyvsp[(4) - (4)].num); 
                         (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)];
@@ -1426,7 +1430,7 @@ yyreduce:
     break;
 
   case 12:
-#line 69 "cexpr.y"
+#line 75 "cexpr.y"
     {
                         alphabet[(yyvsp[(1) - (4)].var)]*=(yyvsp[(4) - (4)].num); 
                         (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)];
@@ -1434,31 +1438,33 @@ yyreduce:
     break;
 
   case 13:
-#line 74 "cexpr.y"
+#line 80 "cexpr.y"
     {
-                        if((yyvsp[(4) - (4)].num)!=0){
+                        if(error==0 && (yyvsp[(4) - (4)].num)!=0){
                            alphabet[(yyvsp[(1) - (4)].var)]/=(yyvsp[(4) - (4)].num); 
                            (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)];
                         }else{
+                           error=1;
                            printf("dividebyzero\n");
                         }
                      }
     break;
 
   case 14:
-#line 83 "cexpr.y"
+#line 90 "cexpr.y"
     {
-                        if((yyvsp[(4) - (4)].num)!=0){
+                        if((yyvsp[(4) - (4)].num)!=0 && error==0){
                            alphabet[(yyvsp[(1) - (4)].var)]%=(yyvsp[(4) - (4)].num); 
                            (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)];
                         }else{
+                           error=1;
                            printf("dividebyzero\n");
                         }
                      }
     break;
 
   case 15:
-#line 92 "cexpr.y"
+#line 100 "cexpr.y"
     {
                         alphabet[(yyvsp[(1) - (5)].var)]<<=(yyvsp[(5) - (5)].num); 
                         (yyval.num)=alphabet[(yyvsp[(1) - (5)].var)];
@@ -1466,7 +1472,7 @@ yyreduce:
     break;
 
   case 16:
-#line 97 "cexpr.y"
+#line 105 "cexpr.y"
     {
                         alphabet[(yyvsp[(1) - (5)].var)]>>=(yyvsp[(5) - (5)].num); 
                         (yyval.num)=alphabet[(yyvsp[(1) - (5)].var)];
@@ -1474,7 +1480,7 @@ yyreduce:
     break;
 
   case 17:
-#line 102 "cexpr.y"
+#line 110 "cexpr.y"
     {
                         alphabet[(yyvsp[(1) - (4)].var)]&=(yyvsp[(4) - (4)].num); 
                         (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)];
@@ -1482,7 +1488,7 @@ yyreduce:
     break;
 
   case 18:
-#line 107 "cexpr.y"
+#line 115 "cexpr.y"
     {
                         alphabet[(yyvsp[(1) - (4)].var)]^=(yyvsp[(4) - (4)].num); 
                         (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)];
@@ -1490,7 +1496,7 @@ yyreduce:
     break;
 
   case 19:
-#line 112 "cexpr.y"
+#line 120 "cexpr.y"
     {
                         alphabet[(yyvsp[(1) - (4)].var)]|=(yyvsp[(4) - (4)].num); 
                         (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)];
@@ -1498,54 +1504,63 @@ yyreduce:
     break;
 
   case 21:
-#line 119 "cexpr.y"
+#line 127 "cexpr.y"
     {(yyval.num)=(yyvsp[(1) - (3)].num) & (yyvsp[(3) - (3)].num);}
     break;
 
   case 22:
-#line 120 "cexpr.y"
+#line 128 "cexpr.y"
     {(yyval.num)=(yyvsp[(1) - (3)].num) ^ (yyvsp[(3) - (3)].num);}
     break;
 
   case 23:
-#line 121 "cexpr.y"
+#line 129 "cexpr.y"
     {(yyval.num)=(yyvsp[(1) - (3)].num) | (yyvsp[(3) - (3)].num);}
     break;
 
   case 25:
-#line 125 "cexpr.y"
+#line 133 "cexpr.y"
     {(yyval.num)=(yyvsp[(1) - (4)].num)<<(yyvsp[(4) - (4)].num);}
     break;
 
   case 26:
-#line 126 "cexpr.y"
+#line 134 "cexpr.y"
     {(yyval.num)=(yyvsp[(1) - (4)].num)>>(yyvsp[(4) - (4)].num);}
     break;
 
   case 28:
-#line 131 "cexpr.y"
+#line 139 "cexpr.y"
     {
-                        printf("ahhhhhhhh");
-                        (yyval.num) = (yyvsp[(1) - (3)].num) + (yyvsp[(3) - (3)].num);
+                        if((yyvsp[(3) - (3)].num)<0){
+                           temp=(-(yyvsp[(3) - (3)].num));
+                        }else{
+                           temp=(yyvsp[(3) - (3)].num);
+                        }
+                        if((yyvsp[(1) - (3)].num) <= max - temp){
+                           (yyval.num) = (yyvsp[(1) - (3)].num) + (yyvsp[(3) - (3)].num); 
+                        }else{
+                           printf("overflow\n");
+                           error=1;
+                        }
                      }
     break;
 
   case 29:
-#line 135 "cexpr.y"
+#line 152 "cexpr.y"
     {(yyval.num) = (yyvsp[(1) - (3)].num) - (yyvsp[(3) - (3)].num);}
     break;
 
   case 31:
-#line 140 "cexpr.y"
+#line 157 "cexpr.y"
     {
                         if((yyvsp[(3) - (3)].num)<0){
-                           printf("hi(:");
+                           temp=(-(yyvsp[(3) - (3)].num));
                         }else{
-                           printf("hi(:");
+                           temp=((yyvsp[(3) - (3)].num));
                         }
                         if((yyvsp[(3) - (3)].num)==0){
                            (yyval.num)=0;
-                        }else if((yyvsp[(1) - (3)].num) <= max / (yyvsp[(3) - (3)].num)){
+                        }else if((yyvsp[(1) - (3)].num) <= max / temp){
                            (yyval.num) = (yyvsp[(1) - (3)].num) * (yyvsp[(3) - (3)].num); 
                         }else{
                            printf("overflow\n");
@@ -1554,55 +1569,57 @@ yyreduce:
     break;
 
   case 32:
-#line 155 "cexpr.y"
+#line 172 "cexpr.y"
     {
-                        if((yyvsp[(3) - (3)].num)!=0){
+                        if((yyvsp[(3) - (3)].num)!=0 && error ==0){
                            (yyval.num)=(yyvsp[(1) - (3)].num)/(yyvsp[(3) - (3)].num);
                         }else{
+                           error=1;
                            printf("dividebyzero\n");
                         }
                      }
     break;
 
   case 33:
-#line 163 "cexpr.y"
+#line 181 "cexpr.y"
     {
-                        if((yyvsp[(3) - (3)].num)!=0){
+                        if((yyvsp[(3) - (3)].num)!=0 && error ==0){
                            (yyval.num)=(yyvsp[(1) - (3)].num)%(yyvsp[(3) - (3)].num);
                         }else{
+                           error=1;
                            printf("dividebyzero\n");
                         }
                      }
     break;
 
   case 35:
-#line 173 "cexpr.y"
+#line 192 "cexpr.y"
     {(yyval.num) = -(yyvsp[(2) - (2)].num);}
     break;
 
   case 36:
-#line 174 "cexpr.y"
-    {(yyval.num)=~(yyvsp[(2) - (2)].num);}
+#line 193 "cexpr.y"
+    {(yyval.num) =~(yyvsp[(2) - (2)].num);}
     break;
 
   case 37:
-#line 177 "cexpr.y"
-    { (yyval.num) = alphabet[(yyvsp[(1) - (1)].var)]; }
+#line 196 "cexpr.y"
+    { (yyval.num) = (yyvsp[(2) - (3)].num); }
     break;
 
   case 38:
-#line 178 "cexpr.y"
-    {(yyval.num)=(yyvsp[(2) - (3)].num);}
+#line 197 "cexpr.y"
+    { (yyval.num) = alphabet[(yyvsp[(1) - (1)].var)]; }
     break;
 
   case 39:
-#line 179 "cexpr.y"
+#line 198 "cexpr.y"
     { (yyval.num) = (yyvsp[(1) - (1)].num); }
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1606 "y.tab.c"
+#line 1623 "y.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1816,7 +1833,7 @@ yyreturn:
 }
 
 
-#line 182 "cexpr.y"
+#line 201 "cexpr.y"
 
 
 
