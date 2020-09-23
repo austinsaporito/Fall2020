@@ -86,29 +86,26 @@ equal: logic_expr
                      }
       |  VAR '/''=' equal 
                      {
-                        if(error==0 && $4!=0){
-                           alphabet[$1]/=$4; 
-                           $$=alphabet[$1];
-                        }else{
-                           error=1;
-                           printf("dividebyzero\n");
+                        if(error==0){
+                           if($4!=0){
+                              alphabet[$1]/=$4; 
+                              $$=alphabet[$1];
+                           }else{
+                              error=1;
+                              printf("dividebyzero\n");
+                           }
                         }
                      }
       |  VAR '%''=' equal 
                      {
-                        if($4!=0 && error==0){
-                           alphabet[$1]%=$4; 
-                           $$=alphabet[$1];
-                        }else{
-                           error=1;
-                           printf("dividebyzero\n");
-                        }
-                     }                 
-      |  VAR '<''<''=' equal 
-                     {
                         if(error==0){
-                           alphabet[$1]<<=$5; 
-                           $$=alphabet[$1];
+                           if($4!=0){
+                              alphabet[$1]%=$4; 
+                              $$=alphabet[$1];
+                           }else{
+                              error=1;
+                              printf("dividebyzero\n");
+                           }
                         }
                      }
       |  VAR '>''>''=' equal 
@@ -192,21 +189,23 @@ mul_div_expr:  neg_not_expr
                      }
       |  mul_div_expr '/' neg_not_expr    
                      {
-                        if($3!=0 && error ==0){
-                           $$=$1/$3;
-                        }else{
-                           error=1;
-                           printf("dividebyzero\n");
-                        }
+                        if(error ==0){
+                           if($3!=0){
+                              $$=$1/$3;
+                           }else{
+                              error=1;
+                              printf("dividebyzero\n");
+                           }
                      }
       |  mul_div_expr '%' neg_not_expr    
                      {
-                        if($3!=0 && error ==0){
-                           $$=$1%$3;
-                        }else{
-                           error=1;
-                           printf("dividebyzero\n");
-                        }
+                        if(error ==0){
+                           if($3!=0){
+                              $$=$1%$3;
+                           }else{
+                            error=1;
+                              printf("dividebyzero\n");
+                           }
                      }
       ;
 
