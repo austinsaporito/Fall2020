@@ -25,11 +25,14 @@ int temp=0;
   
 %type <num> expr
 %type <num> equal
-%type <num> logic_expr
+%type <num> and 
+%type <num> or
+%type <num> xor
+%type <num> neg
+%type <num> not
 %type <num> shift_expr
 %type <num> add_sub_expr
 %type <num> mul_div_expr
-%type <num> neg_not_expr
 %type <num> pren
 
 
@@ -39,8 +42,8 @@ commands:
 	|	commands command
 	;
 
-command:expr  ';'    
-                     { 
+command: expr  ';'    
+                     {
                         if(error!=0){
                            printf("");
                            error=0;
@@ -48,48 +51,58 @@ command:expr  ';'
                            printf("%d\n", $1); 
                         }
                      }
-     |  DUMP  ';'   {dump();}
-     |  CLEAR ';'   {clear();}
-	  ;
+      |  DUMP  ';'   {dump();}
+      |  CLEAR ';'   {clear();}
+	   ;
 
 expr: equal
       ;
 
-equal: logic_expr 
+equal: or 
       |  VAR '=' equal  
                      {
                         if(error==0){
-                           alphabet[$1] = $3; 
-                           $$=alphabet[$1]; 
+                           alphabet[$1-'a'] = $3; 
+                           $$=alphabet[$1-'a']; 
                         }
                      }
       |  VAR '+''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1]+=$4;
-                           $$=alphabet[$1];
+                           if($4<0){
+                              temp=(-$4);
+                           }else{
+                              temp=$4;
+                           }
+                           if(alphabet[$1-'a'] <= max - temp){
+                              alphabet[$1-'a']+=$4;
+                              $$=alphabet[$1-'a'];
+                           }else{
+                              printf("overflow\n");
+                              error=1;
+                           }
                         }
                      }
       |  VAR '-''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1]-=$4; 
-                           $$=alphabet[$1];
+                           alphabet[$1-'a']-=$4; 
+                           $$=alphabet[$1-'a'];
                         }
                      }
       |  VAR '*''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1]*=$4; 
-                           $$=alphabet[$1];
+                           alphabet[$1-'a']*=$4; 
+                           $$=alphabet[$1-'a'];
                         }
                      }
       |  VAR '/''=' equal 
                      {
                         if(error==0){
                            if($4!=0){
-                              alphabet[$1]/=$4; 
-                              $$=alphabet[$1];
+                              alphabet[$1-'a']/=$4; 
+                              $$=alphabet[$1-'a'];
                            }else{
                               error=1;
                               printf("dividebyzero\n");
@@ -100,8 +113,8 @@ equal: logic_expr
                      {
                         if(error==0){
                            if($4!=0){
-                              alphabet[$1]%=$4; 
-                              $$=alphabet[$1];
+                              alphabet[$1-'a']%=$4; 
+                              $$=alphabet[$1-'a'];
                            }else{
                               error=1;
                               printf("dividebyzero\n");
@@ -111,42 +124,83 @@ equal: logic_expr
       |  VAR '>''>''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1]>>=$5; 
-                           $$=alphabet[$1];
+                           alphabet[$1-'a']>>=$5; 
+                           $$=alphabet[$1-'a'];
+                        }
+                     }
+      |  VAR '<''<''=' equal 
+                     {
+                        if(error==0){
+                           alphabet[$1-'a']>>=$5; 
+                           $$=alphabet[$1-'a'];
                         }
                      }
       |  VAR '&''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1]&=$4; 
-                           $$=alphabet[$1];
+                           alphabet[$1-'a']&=$4; 
+                           $$=alphabet[$1-'a'];
                         }
                      }
       |  VAR '^''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1]^=$4; 
-                           $$=alphabet[$1];
+                           alphabet[$1-'a']^=$4; 
+                           $$=alphabet[$1-'a'];
                         }
                      }
       |  VAR '|''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1]|=$4; 
-                           $$=alphabet[$1];
+                           alphabet[$1-'a']|=$4; 
+                           $$=alphabet[$1-'a'];
                         }
                      }
       ;
 
-logic_expr: shift_expr
-      |  logic_expr '&' shift_expr {if(error==0) $$=$1 & $3;}
-      |  logic_expr '^' shift_expr  {if(error==0) $$=$1 ^ $3;}
-      |  logic_expr '|' shift_expr  {if(error==0) $$=$1 | $3;}
+or: xor
+      |  or '|' xor  {if(error==0) $$=$1 | $3;}
+      |  VAR '|' xor  {if(error==0) $$=$1 | $3;}
+      ;
+xor: and
+      |  xor '^' and  {if(error==0) $$=$1 ^ $3;}
+      |  VAR '^' and  {if(error==0) $$=$1 ^ $3;}
+      ;
+
+and: shift_expr
+      |  and '&' shift_expr  {if(error==0) $$=$1 & $3;}
+      |  VAR '&' shift_expr  {if(error==0) $$=$1 & $3;}
       ;
 
 shift_expr: add_sub_expr
-      | shift_expr '<''<' add_sub_expr {if(error==0) $$=$1<<$4;}
-      |  shift_expr '>''>' add_sub_expr {if(error==0) $$=$1>>$4;}
+      | shift_expr '>''>' add_sub_expr {if(error==0) $$=$1>>$4;}
+      | VAR '>''>' add_sub_expr {if(error==0) $$=$1>>$4;}
+
+      | shift_expr '<''<' add_sub_expr 
+                     {
+                        if(error==0){
+                           temp=$1<<$4;
+                           if(temp>$1){
+                              $$=$1<<$4;
+                           }else{
+                              printf("overflow\n");
+                              error=1; 
+                           }
+                        }
+                     }
+      | VAR '<''<' add_sub_expr 
+                     {
+                        if(error==0){
+                           temp=$1<<$4;
+                           if(temp>$1){
+                              $$=$1<<$4;
+                           }else{
+                              printf("overflow\n");
+                              error=1; 
+                           }
+                        }
+                     }
+
       ;
 
 add_sub_expr: mul_div_expr
@@ -166,11 +220,28 @@ add_sub_expr: mul_div_expr
                            }
                         }
                      }     
+      |  VAR '+' mul_div_expr 
+                     {
+                        if(error==0){
+                           if($3<0){
+                              temp=(-$3);
+                           }else{
+                              temp=$3;
+                           }
+                           if($1 <= max - temp){
+                              $$ = $1 + $3; 
+                           }else{
+                              printf("overflow\n");
+                              error=1;
+                           }
+                        }
+                     }
       |  add_sub_expr '-' mul_div_expr   {$$ = $1 - $3;}
+      |  VAR '-' mul_div_expr   {$$ = $1 - $3;}
 	   ;
 
-mul_div_expr:  neg_not_expr
-      |  mul_div_expr '*' neg_not_expr    
+mul_div_expr:  neg
+      |  mul_div_expr '*' neg    
                      {
                         if(error==0){
                            if($3<0){
@@ -187,7 +258,24 @@ mul_div_expr:  neg_not_expr
                            }
                         }
                      }
-      |  mul_div_expr '/' neg_not_expr    
+      |  VAR '*' neg    
+                     {
+                        if(error==0){
+                           if($3<0){
+                              temp=(-$3);
+                           }else{
+                              temp=($3);
+                           }
+                           if($3==0){
+                              $$=0;
+                           }else if($1 <= max / temp){
+                              $$ = $1 * $3; 
+                           }else{
+                              printf("overflow\n");
+                           }
+                        }
+                     }
+      |  mul_div_expr '/' neg    
                      {
                         if(error ==0){
                            if($3!=0){
@@ -196,9 +284,20 @@ mul_div_expr:  neg_not_expr
                               error=1;
                               printf("dividebyzero\n");
                            }
-						}
+      						}
                      }
-      |  mul_div_expr '%' neg_not_expr    
+      |  VAR '/' neg    
+                     {
+                        if(error ==0){
+                           if($3!=0){
+                              $$=$1/$3;
+                           }else{
+                              error=1;
+                              printf("dividebyzero\n");
+                           }
+      						}
+                     }
+      |  mul_div_expr '%' neg    
                      {
                         if(error ==0){
                            if($3!=0){
@@ -207,17 +306,31 @@ mul_div_expr:  neg_not_expr
 	                          error=1;
 	                          printf("dividebyzero\n");
                            }
-						}
+      						}
+                     }
+      |  VAR '%' neg    
+                     {
+                        if(error ==0){
+                           if($3!=0){
+                              $$=$1%$3;
+                           }else{
+	                          error=1;
+	                          printf("dividebyzero\n");
+                           }
+      						}
                      }
       ;
 
-neg_not_expr: pren
-      |  '-' pren {if(error==0) $$ = -$2;} 
+neg: not
+      |  '-' not {if(error==0) $$ =-$2;} 
+      ;
+
+not: pren
       |  '~' pren {if(error==0) $$ =~$2;}
       ;
 
-pren:   '(' expr ')'      { if(error==0) $$ = $2; }
-      |  VAR               { if(error==0) $$ = alphabet[$1]; }
+pren: '(' expr ')'         { if(error==0) $$ = $2; }
+      |  VAR               { if(error==0) $$ = alphabet[$1-'a']; }
       |  NUM               { if(error==0) $$ = $1; }
       ;
 

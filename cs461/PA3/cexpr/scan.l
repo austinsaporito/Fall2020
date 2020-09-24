@@ -4,23 +4,22 @@
 
 %%
 
-[ \t\n]   ;
 
-[0-9]+  { 
+
+[0-9]+   { 
             sscanf(yytext, "%d", &yylval.num);
             return NUM; 
-        }
+       	 }
+
+"dump"   { return DUMP; }
+
+"clear"  { return CLEAR; }
+
 [a-z]    { 
-            yylval.num = *yytext - 'a';
+			yylval.var=yytext[0];
             return VAR; 
-        }
-
-
-
+		}
 
 .      { return yytext[0]; }
 
-dump   { return DUMP; }
-
-clear  { return CLEAR; }
-
+[ \t\r\n]+   ;
