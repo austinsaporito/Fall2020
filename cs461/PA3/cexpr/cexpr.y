@@ -6,12 +6,14 @@
 #include <stdio.h>
 #include <limits.h>
 int alphabet[26]={0};
-int max= INT_MAX;
-int min =INT_MIN;
+long long max=INT_MAX;
+long long min=INT_MIN;
 void dump();
 void clear();
 int error=0;
 long long temp;
+long long var1;
+long long var2;
 %}
 
 %union {
@@ -71,7 +73,9 @@ equal: or
       |  VAR '+''=' equal 
                      {
                         if(error==0){
-                           temp=alphabet[$1-'a']+$4;
+                           var1=alphabet[$1-'a'];
+                           var2=$4;
+                           temp=var1+var2;
                            if(temp<=max|| temp >= min){
                               alphabet[$1-'a']+=$4;
                               $$=alphabet[$1-'a'];
@@ -91,8 +95,16 @@ equal: or
       |  VAR '*''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1-'a']*=$4; 
-                           $$=alphabet[$1-'a'];
+                           var1=alphabet[$1-'a'];
+                           var2=$4;
+                           temp=var1*var2;
+                           if(temp<=max|| temp >= min){
+                              alphabet[$1-'a']*=$4; 
+                              $$=alphabet[$1-'a'];
+                           }else{
+                              error=1;
+                              printf("overflow\n");
+                           }
                         }
                      }
       |  VAR '/''=' equal 
@@ -119,17 +131,12 @@ equal: or
                            }
                         }
                      }
-      |  VAR '>''>''=' equal 
-                     {
-                        if(error==0){
-                           alphabet[$1-'a']>>=$5; 
-                           $$=alphabet[$1-'a'];
-                        }
-                     }
       |  VAR '<''<''=' equal 
                      {
                         if(error==0){
-                           temp=alphabet[$1-'a']<<$5;
+                           var1=alphabet[$1-'a'];
+                           var2=$5;
+                           temp=var1<<var2;
                            if(temp<= max || temp >= min){
                               alphabet[$1-'a']<<=$5; 
                               $$=alphabet[$1-'a'];
@@ -137,6 +144,13 @@ equal: or
                               printf("overflow\n");
                               error=1; 
                            }
+                        }
+                     }
+      |  VAR '>''>''=' equal 
+                     {
+                        if(error==0){
+                           alphabet[$1-'a']>>=$5; 
+                           $$=alphabet[$1-'a'];
                         }
                      }
       |  VAR '&''=' equal 
@@ -183,7 +197,9 @@ shift_expr: add_sub_expr
       | shift_expr '<''<' add_sub_expr 
                      {
                         if(error==0){
-                           temp=$1<<$4;
+                           var1=$1;
+                           var2=$4;
+                           temp=var1<<var2;
                            if(temp<=max || temp >= min){
                               $$=$1<<$4;
                            }else{
@@ -195,7 +211,9 @@ shift_expr: add_sub_expr
       | VAR '<''<' add_sub_expr 
                      {
                         if(error==0){
-                           temp=alphabet[$1-'a']<<$4;
+                           var1=alphabet[$1-'a'];
+                           var2=$4;
+                           temp=var1<<var2;
                            if(temp<=max || temp >= min ){
                               $$=alphabet[$1-'a']<<$4;
                            }else{
@@ -211,7 +229,9 @@ add_sub_expr: mul_div_expr
       |  add_sub_expr '+' mul_div_expr   
                      {
                         if(error==0){
-                           temp=$1+$3;
+                           var1=$1;
+                           var2=$3;
+                           temp=var1+var2;
                            if(temp<=max|| temp >= min){
                               $$ = $1 + $3; 
                            }else{
@@ -223,7 +243,9 @@ add_sub_expr: mul_div_expr
       |  VAR '+' mul_div_expr 
                      {
                         if(error==0){
-                           temp=alphabet[$1-'a'] + $3;
+                           var1=alphabet[$1-'a'];
+                           var2=$3;
+                           temp=var1+var2;
                            if(temp<=max|| temp >= min){
                               $$ = alphabet[$1-'a'] + $3; 
                            }else{
@@ -232,18 +254,43 @@ add_sub_expr: mul_div_expr
                            }
                         }
                      }
-      |  add_sub_expr '-' mul_div_expr   {$$ = $1 - $3;}
-      |  VAR '-' mul_div_expr   {$$ = alphabet[$1-'a'] - $3;}
+      |  add_sub_expr '-' mul_div_expr
+                     {
+                        var1=$1;
+                        var2=$3;
+                        temp=var1-var2;
+                        if(temp<=max|| temp >= min){
+                           $$ = $1 - $3;
+                        }else{
+                              printf("overflow\n");
+                              error=1;
+                           }
+                     }
+      |  VAR '-' mul_div_expr   
+                     {
+                        var1=alphabet[$1-'a'];
+                        var2=$3;
+                        temp=var1-var2;
+                        if(temp<=max|| temp >= min){ 
+                           $$ = alphabet[$1-'a'] - $3;
+                        }else{
+                              printf("overflow\n");
+                              error=1;
+                        }
+                     }
 	   ;
 
 mul_div_expr:  neg
       |  mul_div_expr '*' neg    
                      {
                         if(error==0){
-                           temp=$1 * $3;
+                           var1=$1;
+                           var2=$3;
+                           temp=var1*var2;
                            if(temp<=max || temp >= min){
-                              $$ = $1 * $3; 
+                              $$=$1*$3; 
                            }else{
+                              error=1;
                               printf("overflow\n");
                            }
                         }
@@ -251,10 +298,13 @@ mul_div_expr:  neg
       |  VAR '*' neg    
                      {
                         if(error==0){
-                           temp=alphabet[$1-'a'] * $3;
+                           var1=alphabet[$1-'a'];
+                           var2=$3;
+                           temp=var1*var2;
                            if(temp<=max|| temp >= min){
                               $$ = alphabet[$1-'a'] * $3; 
                            }else{
+                              error=1;
                               printf("overflow\n");
                            }
                         }
@@ -318,7 +368,7 @@ pren: '(' equal ')'        { if(error==0) $$ = $2; }
       |  NUM               
                      { 
                         if(error==0){
-                           if (temp<=max|| temp >= min){
+                           if ($1<=max|| $1 >= min){
                               $$ = $1; 
                            }else{
                               error=1;
