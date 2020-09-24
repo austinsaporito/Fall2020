@@ -369,14 +369,14 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[21] =
     {   0,
-        0,    0,    8,    5,    5,    6,    1,    4,    4,    4,
-        6,    1,    0,    0,    0,    0,    0,    2,    3,    0
+        0,    0,    8,    6,    1,    1,    2,    5,    5,    5,
+        1,    2,    0,    0,    0,    0,    0,    3,    4,    0
     } ;
 
 static yyconst flex_int32_t yy_ec[256] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    2,    3,
-        1,    1,    2,    1,    1,    1,    1,    1,    1,    1,
+        1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    2,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    4,    4,    4,
@@ -644,8 +644,7 @@ YY_DECL
 
 
 
-
-#line 649 "lex.yy.c"
+#line 648 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -729,48 +728,48 @@ do_action:	/* This label is used only to access EOF actions. */
 			goto yy_find_action;
 
 case 1:
+/* rule 1 can match eol */
 YY_RULE_SETUP
-#line 9 "scan.l"
+#line 8 "scan.l"
+;
+	YY_BREAK
+case 2:
+YY_RULE_SETUP
+#line 10 "scan.l"
 { 
             sscanf(yytext, "%d", &yylval.num);
             return NUM; 
        	 }
 	YY_BREAK
-case 2:
-YY_RULE_SETUP
-#line 14 "scan.l"
-{ return DUMP; }
-	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 16 "scan.l"
-{ return CLEAR; }
+#line 15 "scan.l"
+{ return DUMP; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 18 "scan.l"
+#line 17 "scan.l"
+{ return CLEAR; }
+	YY_BREAK
+case 5:
+YY_RULE_SETUP
+#line 19 "scan.l"
 { 
 			yylval.var=yytext[0];
             return VAR; 
 		}
 	YY_BREAK
-case 5:
-YY_RULE_SETUP
-#line 23 "scan.l"
-{ return yytext[0]; }
-	YY_BREAK
 case 6:
-/* rule 6 can match eol */
 YY_RULE_SETUP
-#line 25 "scan.l"
-;
+#line 24 "scan.l"
+{ return yytext[0]; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 26 "scan.l"
 ECHO;
 	YY_BREAK
-#line 774 "lex.yy.c"
+#line 773 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

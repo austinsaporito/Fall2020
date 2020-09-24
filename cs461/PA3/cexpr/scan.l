@@ -5,6 +5,7 @@
 %%
 
 
+[ \t\n]+   ;
 
 [0-9]+   { 
             sscanf(yytext, "%d", &yylval.num);
@@ -22,4 +23,3 @@
 
 .      { return yytext[0]; }
 
-[ \t\r\n]+   ;
