@@ -11,9 +11,9 @@ long long min=INT_MIN;
 void dump();
 void clear();
 int error=0;
-long long temp;
-long long var1;
-long long var2;
+unsigned long long temp;
+unsigned long long var1;
+unsigned long long var2;
 %}
 
 %union {
@@ -88,8 +88,16 @@ equal: or
       |  VAR '-''=' equal 
                      {
                         if(error==0){
-                           alphabet[$1-'a']-=$4; 
-                           $$=alphabet[$1-'a'];
+                           var1=alphabet[$1-'a'];
+                           var2=$4;
+                           temp=var1-var2;
+                           if(temp<=max|| temp >= min){ 
+                              alphabet[$1-'a']-=$4; 
+                              $$=alphabet[$1-'a'];
+                           }else{
+                              printf("overflow\n");
+                              error=1;
+                           }
                         }
                      }
       |  VAR '*''=' equal 
