@@ -86,9 +86,9 @@
 
 #include <stdio.h>
 #include <limits.h>
-int alphabet[26]={0};
-long long max=INT_MAX;
-long long min=INT_MIN;
+long long alphabet[26]={0};
+int max=INT_MAX;
+int min=INT_MIN;
 void dump();
 void clear();
 int error=0;
@@ -1483,7 +1483,7 @@ yyreduce:
                            var1=alphabet[(yyvsp[(1) - (4)].var)-'a'];
                            var2=(yyvsp[(4) - (4)].num);
                            temp=var1+var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               alphabet[(yyvsp[(1) - (4)].var)-'a']+=(yyvsp[(4) - (4)].num);
                               (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)-'a'];
                            }else{
@@ -1501,7 +1501,7 @@ yyreduce:
                            var1=alphabet[(yyvsp[(1) - (4)].var)-'a'];
                            var2=(yyvsp[(4) - (4)].num);
                            temp=var1-var2;
-                           if(temp<=max|| temp >= min){ 
+                           if(temp<max|| temp > min){ 
                               alphabet[(yyvsp[(1) - (4)].var)-'a']-=(yyvsp[(4) - (4)].num); 
                               (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)-'a'];
                            }else{
@@ -1519,7 +1519,7 @@ yyreduce:
                            var1=alphabet[(yyvsp[(1) - (4)].var)-'a'];
                            var2=(yyvsp[(4) - (4)].num);
                            temp=var1*var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               alphabet[(yyvsp[(1) - (4)].var)-'a']*=(yyvsp[(4) - (4)].num); 
                               (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)-'a'];
                            }else{
@@ -1567,7 +1567,7 @@ yyreduce:
                            var1=alphabet[(yyvsp[(1) - (5)].var)-'a'];
                            var2=(yyvsp[(5) - (5)].num);
                            temp=var1<<var2;
-                           if(temp<= max || temp >= min){
+                           if(temp< max || temp > min){
                               alphabet[(yyvsp[(1) - (5)].var)-'a']<<=(yyvsp[(5) - (5)].num); 
                               (yyval.num)=alphabet[(yyvsp[(1) - (5)].var)-'a'];
                            }else{
@@ -1665,7 +1665,7 @@ yyreduce:
                            var1=(yyvsp[(1) - (4)].num);
                            var2=(yyvsp[(4) - (4)].num);
                            temp=var1<<var2;
-                           if(temp<=max || temp >= min){
+                           if(temp<max || temp > min){
                               (yyval.num)=(yyvsp[(1) - (4)].num)<<(yyvsp[(4) - (4)].num);
                            }else{
                               printf("overflow\n");
@@ -1682,7 +1682,7 @@ yyreduce:
                            var1=alphabet[(yyvsp[(1) - (4)].var)-'a'];
                            var2=(yyvsp[(4) - (4)].num);
                            temp=var1<<var2;
-                           if(temp<=max || temp >= min ){
+                           if(temp<max || temp > min ){
                               (yyval.num)=alphabet[(yyvsp[(1) - (4)].var)-'a']<<(yyvsp[(4) - (4)].num);
                            }else{
                               printf("overflow\n");
@@ -1699,7 +1699,7 @@ yyreduce:
                            var1=(yyvsp[(1) - (3)].num);
                            var2=(yyvsp[(3) - (3)].num);
                            temp=var1+var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               (yyval.num) = (yyvsp[(1) - (3)].num) + (yyvsp[(3) - (3)].num); 
                            }else{
                               printf("overflow\n");
@@ -1716,7 +1716,7 @@ yyreduce:
                            var1=alphabet[(yyvsp[(1) - (3)].var)-'a'];
                            var2=(yyvsp[(3) - (3)].num);
                            temp=var1+var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               (yyval.num) = alphabet[(yyvsp[(1) - (3)].var)-'a'] + (yyvsp[(3) - (3)].num); 
                            }else{
                               printf("overflow\n");
@@ -1732,7 +1732,7 @@ yyreduce:
                         var1=(yyvsp[(1) - (3)].num);
                         var2=(yyvsp[(3) - (3)].num);
                         temp=var1-var2;
-                        if(temp<=max|| temp >= min){
+                        if(temp<max|| temp > min){
                            (yyval.num) = (yyvsp[(1) - (3)].num) - (yyvsp[(3) - (3)].num);
                         }else{
                               printf("overflow\n");
@@ -1747,7 +1747,7 @@ yyreduce:
                         var1=alphabet[(yyvsp[(1) - (3)].var)-'a'];
                         var2=(yyvsp[(3) - (3)].num);
                         temp=var1-var2;
-                        if(temp<=max|| temp >= min){ 
+                        if(temp<max|| temp > min){ 
                            (yyval.num) = alphabet[(yyvsp[(1) - (3)].var)-'a'] - (yyvsp[(3) - (3)].num);
                         }else{
                               printf("overflow\n");
@@ -1763,7 +1763,7 @@ yyreduce:
                            var1=(yyvsp[(1) - (3)].num);
                            var2=(yyvsp[(3) - (3)].num);
                            temp=var1*var2;
-                           if(temp<=max || temp >= min){
+                           if(temp<max || temp > min){
                               (yyval.num)=(yyvsp[(1) - (3)].num)*(yyvsp[(3) - (3)].num); 
                            }else{
                               error=1;
@@ -1780,7 +1780,7 @@ yyreduce:
                            var1=alphabet[(yyvsp[(1) - (3)].var)-'a'];
                            var2=(yyvsp[(3) - (3)].num);
                            temp=var1*var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               (yyval.num) = alphabet[(yyvsp[(1) - (3)].var)-'a'] * (yyvsp[(3) - (3)].num); 
                            }else{
                               error=1;
@@ -1870,7 +1870,7 @@ yyreduce:
 #line 377 "cexpr.y"
     { 
                         if(error==0){
-                           if ((yyvsp[(1) - (1)].num)<=max|| (yyvsp[(1) - (1)].num) >= min){
+                           if ((yyvsp[(1) - (1)].num)<max|| (yyvsp[(1) - (1)].num) > min){
                               (yyval.num) = (yyvsp[(1) - (1)].num); 
                            }else{
                               error=1;
@@ -2120,7 +2120,7 @@ void dump(){
    int i;
 
    for(i=0;i<26;i++){
-      printf("%c: %d\n",letter,alphabet[i]);
+      printf("%c: %lld\n",letter,alphabet[i]);
       letter++;
    }
    return;

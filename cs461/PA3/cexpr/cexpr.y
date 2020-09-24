@@ -5,9 +5,9 @@
 %{
 #include <stdio.h>
 #include <limits.h>
-int alphabet[26]={0};
-long long max=INT_MAX;
-long long min=INT_MIN;
+long long alphabet[26]={0};
+int max=INT_MAX;
+int min=INT_MIN;
 void dump();
 void clear();
 int error=0;
@@ -76,7 +76,7 @@ equal: or
                            var1=alphabet[$1-'a'];
                            var2=$4;
                            temp=var1+var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               alphabet[$1-'a']+=$4;
                               $$=alphabet[$1-'a'];
                            }else{
@@ -91,7 +91,7 @@ equal: or
                            var1=alphabet[$1-'a'];
                            var2=$4;
                            temp=var1-var2;
-                           if(temp<=max|| temp >= min){ 
+                           if(temp<max|| temp > min){ 
                               alphabet[$1-'a']-=$4; 
                               $$=alphabet[$1-'a'];
                            }else{
@@ -106,7 +106,7 @@ equal: or
                            var1=alphabet[$1-'a'];
                            var2=$4;
                            temp=var1*var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               alphabet[$1-'a']*=$4; 
                               $$=alphabet[$1-'a'];
                            }else{
@@ -145,7 +145,7 @@ equal: or
                            var1=alphabet[$1-'a'];
                            var2=$5;
                            temp=var1<<var2;
-                           if(temp<= max || temp >= min){
+                           if(temp< max || temp > min){
                               alphabet[$1-'a']<<=$5; 
                               $$=alphabet[$1-'a'];
                            }else{
@@ -208,7 +208,7 @@ shift_expr: add_sub_expr
                            var1=$1;
                            var2=$4;
                            temp=var1<<var2;
-                           if(temp<=max || temp >= min){
+                           if(temp<max || temp > min){
                               $$=$1<<$4;
                            }else{
                               printf("overflow\n");
@@ -222,7 +222,7 @@ shift_expr: add_sub_expr
                            var1=alphabet[$1-'a'];
                            var2=$4;
                            temp=var1<<var2;
-                           if(temp<=max || temp >= min ){
+                           if(temp<max || temp > min ){
                               $$=alphabet[$1-'a']<<$4;
                            }else{
                               printf("overflow\n");
@@ -240,7 +240,7 @@ add_sub_expr: mul_div_expr
                            var1=$1;
                            var2=$3;
                            temp=var1+var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               $$ = $1 + $3; 
                            }else{
                               printf("overflow\n");
@@ -254,7 +254,7 @@ add_sub_expr: mul_div_expr
                            var1=alphabet[$1-'a'];
                            var2=$3;
                            temp=var1+var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               $$ = alphabet[$1-'a'] + $3; 
                            }else{
                               printf("overflow\n");
@@ -267,7 +267,7 @@ add_sub_expr: mul_div_expr
                         var1=$1;
                         var2=$3;
                         temp=var1-var2;
-                        if(temp<=max|| temp >= min){
+                        if(temp<max|| temp > min){
                            $$ = $1 - $3;
                         }else{
                               printf("overflow\n");
@@ -279,7 +279,7 @@ add_sub_expr: mul_div_expr
                         var1=alphabet[$1-'a'];
                         var2=$3;
                         temp=var1-var2;
-                        if(temp<=max|| temp >= min){ 
+                        if(temp<max|| temp > min){ 
                            $$ = alphabet[$1-'a'] - $3;
                         }else{
                               printf("overflow\n");
@@ -295,7 +295,7 @@ mul_div_expr:  neg
                            var1=$1;
                            var2=$3;
                            temp=var1*var2;
-                           if(temp<=max || temp >= min){
+                           if(temp<max || temp > min){
                               $$=$1*$3; 
                            }else{
                               error=1;
@@ -309,7 +309,7 @@ mul_div_expr:  neg
                            var1=alphabet[$1-'a'];
                            var2=$3;
                            temp=var1*var2;
-                           if(temp<=max|| temp >= min){
+                           if(temp<max|| temp > min){
                               $$ = alphabet[$1-'a'] * $3; 
                            }else{
                               error=1;
@@ -376,7 +376,7 @@ pren: '(' equal ')'        { if(error==0) $$ = $2; }
       |  NUM               
                      { 
                         if(error==0){
-                           if ($1<=max|| $1 >= min){
+                           if ($1<max|| $1 > min){
                               $$ = $1; 
                            }else{
                               error=1;
@@ -409,7 +409,7 @@ void dump(){
    int i;
 
    for(i=0;i<26;i++){
-      printf("%c: %d\n",letter,alphabet[i]);
+      printf("%c: %lld\n",letter,alphabet[i]);
       letter++;
    }
    return;
