@@ -16,7 +16,6 @@ dividebyzero
 536870912
 0
 dividebyzero
-overflow
 dividebyzero
 2
 dividebyzero
@@ -440,12 +439,12 @@ dividebyzero
 0
 38
 dividebyzero
-overflow
+0
 dividebyzero
 a: 0
 b: 0
 c: 0
-d: -261
+d: -4276224
 e: 0
 f: 0
 g: 0
@@ -585,7 +584,7 @@ dividebyzero
 a: 0
 b: 0
 c: 0
-d: -261
+d: -4276224
 e: 0
 f: 0
 g: 0
@@ -615,13 +614,13 @@ dividebyzero
 dividebyzero
 dividebyzero
 -256
--320
+-160
 dividebyzero
 dividebyzero
 a: 0
 b: 0
 c: 0
-d: -261
+d: -4276224
 e: 0
 f: 0
 g: 0
@@ -647,7 +646,7 @@ z: -4909
 -20332
 21
 dividebyzero
--1
+-18
 dividebyzero
 11730
 dividebyzero
@@ -806,7 +805,7 @@ dividebyzero
 -18
 dividebyzero
 dividebyzero
-overflow
+-1610612736
 -27
 -1
 dividebyzero
@@ -827,7 +826,7 @@ dividebyzero
 dividebyzero
 dividebyzero
 a: 0
-b: -3
+b: -1610612736
 c: 0
 d: 0
 e: 0
@@ -911,17 +910,17 @@ dividebyzero
 dividebyzero
 dividebyzero
 7
--1
+dividebyzero
 dividebyzero
 dividebyzero
 dividebyzero
 dividebyzero
 -248
--3
+-1610612736
 dividebyzero
 a: 0
-b: -3
-c: 0
+b: -1610612736
+c: 813
 d: 0
 e: 0
 f: 0
@@ -942,7 +941,7 @@ t: -3
 u: 0
 v: -3242
 w: 0
-x: -79056
+x: 0
 y: -3242
 z: 2
 dividebyzero
@@ -952,7 +951,7 @@ dividebyzero
 dividebyzero
 5
 -10
--5
+-1
 dividebyzero
 -12
 -26
@@ -972,8 +971,8 @@ dividebyzero
 dividebyzero
 dividebyzero
 a: -26
-b: -3
-c: 0
+b: -1610612736
+c: 813
 d: 0
 e: 0
 f: -26
@@ -994,24 +993,24 @@ t: -3
 u: 0
 v: -3242
 w: 0
-x: -79056
+x: 0
 y: -3552
 z: 2
 81
 230
--24
+-56
 14
 136
-121
+125
 0
-overflow
+-6403
 dividebyzero
 dividebyzero
--1
+0
 dividebyzero
 a: -26
-b: -3
-c: 0
+b: -1610612736
+c: 813
 d: 0
 e: 0
 f: -26
@@ -1026,21 +1025,21 @@ n: 0
 o: 230
 p: 136
 q: -126
-r: 45318
-s: 45334
+r: 42116
+s: 42116
 t: -3
 u: 0
-v: 81
+v: -6403
 w: 0
-x: -1
+x: 0
 y: -3552
 z: 2
 dividebyzero
 dividebyzero
 -1
 a: -26
-b: -3
-c: 0
+b: -1610612736
+c: 813
 d: 0
 e: 0
 f: -26
@@ -1055,19 +1054,19 @@ n: 0
 o: 230
 p: 136
 q: -126
-r: 45318
-s: 45334
+r: 42116
+s: 42116
 t: -3
 u: 0
-v: 81
+v: -6403
 w: 0
-x: -1
+x: 0
 y: -3552
 z: 2
 dividebyzero
 dividebyzero
 dividebyzero
-overflow
+-2147483648
 -9
 dividebyzero
 dividebyzero

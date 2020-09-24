@@ -4,12 +4,14 @@
 
 %{
 #include <stdio.h>
+#include <limits.h>
 int alphabet[26]={0};
-int max = 2147483647;
+int max= INT_MAX;
+int min =INT_MIN;
 void dump();
 void clear();
 int error=0;
-int temp=0;
+long long temp;
 %}
 
 %union {
@@ -69,12 +71,8 @@ equal: or
       |  VAR '+''=' equal 
                      {
                         if(error==0){
-                           if($4<0){
-                              temp=(-$4);
-                           }else{
-                              temp=$4;
-                           }
-                           if(alphabet[$1-'a'] <= max - temp){
+                           temp=alphabet[$1-'a']+$4;
+                           if(temp<=max|| temp >= min){
                               alphabet[$1-'a']+=$4;
                               $$=alphabet[$1-'a'];
                            }else{
@@ -132,7 +130,7 @@ equal: or
                      {
                         if(error==0){
                            temp=alphabet[$1-'a']<<$5;
-                           if(temp>=alphabet[$1-'a']){
+                           if(temp<= max || temp >= min){
                               alphabet[$1-'a']<<=$5; 
                               $$=alphabet[$1-'a'];
                            }else{
@@ -186,7 +184,7 @@ shift_expr: add_sub_expr
                      {
                         if(error==0){
                            temp=$1<<$4;
-                           if(temp>=$1){
+                           if(temp<=max || temp >= min){
                               $$=$1<<$4;
                            }else{
                               printf("overflow\n");
@@ -198,7 +196,7 @@ shift_expr: add_sub_expr
                      {
                         if(error==0){
                            temp=alphabet[$1-'a']<<$4;
-                           if(temp>=$1){
+                           if(temp<=max || temp >= min ){
                               $$=alphabet[$1-'a']<<$4;
                            }else{
                               printf("overflow\n");
@@ -213,12 +211,8 @@ add_sub_expr: mul_div_expr
       |  add_sub_expr '+' mul_div_expr   
                      {
                         if(error==0){
-                           if($3<0){
-                              temp=(-$3);
-                           }else{
-                              temp=$3;
-                           }
-                           if($1 <= max - temp){
+                           temp=$1+$3;
+                           if(temp<=max|| temp >= min){
                               $$ = $1 + $3; 
                            }else{
                               printf("overflow\n");
@@ -229,12 +223,8 @@ add_sub_expr: mul_div_expr
       |  VAR '+' mul_div_expr 
                      {
                         if(error==0){
-                           if($3<0){
-                              temp=(-$3);
-                           }else{
-                              temp=$3;
-                           }
-                           if($1 <= max - temp){
+                           temp=alphabet[$1-'a'] + $3;
+                           if(temp<=max|| temp >= min){
                               $$ = alphabet[$1-'a'] + $3; 
                            }else{
                               printf("overflow\n");
@@ -250,14 +240,8 @@ mul_div_expr:  neg
       |  mul_div_expr '*' neg    
                      {
                         if(error==0){
-                           if($3<0){
-                              temp=(-$3);
-                           }else{
-                              temp=($3);
-                           }
-                           if($3==0){
-                              $$=0;
-                           }else if($1 <= max / temp){
+                           temp=$1 * $3;
+                           if(temp<=max || temp >= min){
                               $$ = $1 * $3; 
                            }else{
                               printf("overflow\n");
@@ -267,14 +251,8 @@ mul_div_expr:  neg
       |  VAR '*' neg    
                      {
                         if(error==0){
-                           if($3<0){
-                              temp=(-$3);
-                           }else{
-                              temp=($3);
-                           }
-                           if($3==0){
-                              $$=0;
-                           }else if($1 <= max / temp){
+                           temp=alphabet[$1-'a'] * $3;
+                           if(temp<=max|| temp >= min){
                               $$ = alphabet[$1-'a'] * $3; 
                            }else{
                               printf("overflow\n");
@@ -337,7 +315,17 @@ not: pren
 
 pren: '(' equal ')'        { if(error==0) $$ = $2; }
       |  VAR               { if(error==0) $$ = alphabet[$1-'a']; }
-      |  NUM               { if(error==0) $$ = $1; }
+      |  NUM               
+                     { 
+                        if(error==0){
+                           if (temp<=max|| temp >= min){
+                              $$ = $1; 
+                           }else{
+                              error=1;
+                              printf("overflow\n");
+                           }
+                        }
+                     }
       ;
 
 %%
