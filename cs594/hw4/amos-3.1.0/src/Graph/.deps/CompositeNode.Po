@@ -1,1 +1,3 @@
-CompositeNode.o: CompositeNode.cc
+CompositeNode.o: CompositeNode.cc /usr/include/stdc-predef.h
+
+/usr/include/stdc-predef.h:

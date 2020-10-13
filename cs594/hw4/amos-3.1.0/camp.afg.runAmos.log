@@ -1,0 +1,92 @@
+!!! 2020-10-12 21:42:46  Started by dxh594@hydra8.eecs.utk.edu on Mon Oct 12 21:42:46 2020
+
+!!! 2020-10-12 21:42:46  Doing step 10:  Building AMOS bank
+!!! 2020-10-12 21:42:46  Running: /home/dxh594/Fall2020/cs594/hw4/amos-3.1.0/bin/bank-transact -c -z -b camp.bnk -m camp.afg
+START DATE: Mon Oct 12 21:42:46 2020
+Bank is: camp.bnk
+    0%                                            100%
+AFG ..................................................
+Messages read: 30785
+Objects added: 30785
+Objects deleted: 0
+Objects replaced: 0
+END DATE:   Mon Oct 12 21:42:47 2020
+!!! 2020-10-12 21:42:47  Done! Elapsed time:0d 0h 0m 1s
+
+!!! 2020-10-12 21:42:47  Doing step 20:  Running overlap
+!!! 2020-10-12 21:42:47  Running: /home/dxh594/Fall2020/cs594/hw4/amos-3.1.0/bin/hash-overlap -B camp.bnk
+Starting on Mon Oct 12 21:42:47 2020
+
+Read bank is camp.bnk
+Alignment error rate is 0.06
+Minimum overlap bases is 40
+!!! 2020-10-12 21:45:02  Done! Elapsed time:0d 0h 2m 15s
+
+!!! 2020-10-12 21:45:02  Doing step 30:  Running contigger
+!!! 2020-10-12 21:45:02  Running: /home/dxh594/Fall2020/cs594/hw4/amos-3.1.0/bin/tigger -b camp.bnk
+ Pulling reads from bank camp.bnk
+Pulled 20461 reads from bank 
+ Pulling overlaps from bank camp.bnk
+Pulled 187580 overlaps from bank 
+ total contained reads hidden 7858
+ number of contigs 284
+this pass containment size is 7858
+7209 containment reads added back on this pass 
+ sub-total contained reads unhidden 7209
+this pass containment size is 649
+623 containment reads added back on this pass 
+ sub-total contained reads unhidden 7832
+this pass containment size is 26
+24 containment reads added back on this pass 
+ sub-total contained reads unhidden 7856
+this pass containment size is 2
+2 containment reads added back on this pass 
+ sub-total contained reads unhidden 7858
+ total contained reads unhidden 7858
+ Writing layouts to bank camp.bnk
+!!! 2020-10-12 21:45:03  Done! Elapsed time:0d 0h 0m 1s
+
+!!! 2020-10-12 21:45:03  Doing step 40:  Running consensus
+!!! 2020-10-12 21:45:03  Running: /home/dxh594/Fall2020/cs594/hw4/amos-3.1.0/bin/make-consensus -B -b camp.bnk
+Starting on Mon Oct 12 21:45:03 2020
+
+Read bank is camp.bnk
+Alignment error rate is 0.06
+Minimum overlap bases is 5
+Output will be written to the bank
+Input is being read from the bank 
+In contig 12 forced alignment of 514 bases of string 16976 subscript 543 to 477 bases of consensus
+  with 40 errors (7.78% error)
+In contig 19 forced alignment of 73 bases of string 29345 subscript 350 to 68 bases of consensus
+  with 7 errors (9.59% error)
+In contig 27 forced alignment of 101 bases of string 22075 subscript 632 to 93 bases of consensus
+  with 9 errors (8.91% error)
+In contig 33 forced alignment of 173 bases of string 11578 subscript 104 to 164 bases of consensus
+  with 15 errors (8.67% error)
+In contig 42 forced alignment of 243 bases of string 18513 subscript 299 to 217 bases of consensus
+  with 27 errors (11.11% error)
+In contig 42 forced alignment of 213 bases of string 10389 subscript 359 to 193 bases of consensus
+  with 20 errors (9.39% error)
+In contig 54 forced alignment of 110 bases of string 27884 subscript 556 to 96 bases of consensus
+  with 16 errors (14.55% error)
+In contig 61 forced alignment of 64 bases of string 28106 subscript 56 to 57 bases of consensus
+  with 7 errors (10.94% error)
+In contig 65 forced alignment of 206 bases of string 13863 subscript 184 to 189 bases of consensus
+  with 17 errors (8.25% error)
+In contig 73 forced alignment of 212 bases of string 21036 subscript 282 to 194 bases of consensus
+  with 18 errors (8.49% error)
+Processed 230 layouts
+!!! 2020-10-12 21:45:05  Done! Elapsed time:0d 0h 0m 2s
+
+!!! 2020-10-12 21:45:05  Doing step 50:  Outputting contigs
+!!! 2020-10-12 21:45:05  Running: /home/dxh594/Fall2020/cs594/hw4/amos-3.1.0/bin/bank2contig camp.bnk > camp.contig
+Processing camp.bnk at Mon Oct 12 21:45:05 2020
+End: Mon Oct 12 21:45:05 2020
+!!! 2020-10-12 21:45:06  Done! Elapsed time:0d 0h 0m 1s
+
+!!! 2020-10-12 21:45:06  Doing step 60:  Converting to FastA file
+!!! 2020-10-12 21:45:06  Running: /home/dxh594/Fall2020/cs594/hw4/amos-3.1.0/bin/bank2fasta -b camp.bnk > camp.fasta
+!!! 2020-10-12 21:45:06  Done! Elapsed time:0d 0h 0m 0s
+
+!!! END - Elapsed time: 0d 0h 2m 20s
+

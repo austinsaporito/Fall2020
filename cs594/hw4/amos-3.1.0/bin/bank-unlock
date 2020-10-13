@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-use lib "/Users/austinsaporito/Fall2020/cs594/hw4/amos-3.1.0/lib";
+use lib "/home/dxh594/Fall2020/cs594/hw4/amos-3.1.0/lib";
 
 
 use strict;
