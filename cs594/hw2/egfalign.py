@@ -6,11 +6,11 @@ def main():
     humanfile="human_mito.fasta"
     muskitofile="neander_sample.fasta"
 
-    with open(humanfile,"r") as hf:
+    with open("s","r") as hf:
         hf.readline()
         humangenome=hf.read()
 
-    with open(muskitofile,"r") as mf:
+    with open("t","r") as mf:
         mf.readline()
         muskitogenome=mf.read()
 
@@ -23,7 +23,7 @@ def main():
 
     for i in range(len(submatrix)):
         submatrix[i]=[None]*(len(muskitogenome)+2)
-    gap=-2
+    gap=-1
     match=2
     mismatch=-1
     total=0
@@ -86,6 +86,13 @@ def main():
                        if submatrix[i][j] >= biggestrow:
                            biggestrow=submatrix[i][j]
                     
+#    for i in submatrix:
+#        print(i)
+#    print()
+#    for i in directionmatrix:
+#        print(i)
+    print(biggestrow)
+    print(biggestcolumn)
     if biggestrow > biggestcolumn:
         print(biggestrow)
     elif biggestcolumn > biggestrow:

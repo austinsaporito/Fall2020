@@ -28,7 +28,7 @@ def main():
     for i in range(len(submatrix)):
         submatrix[i]=[None]*(len(muskitogenome)+2)
 
-    gap=-2
+    gap=-1
     match=2
     mismatch=-1
     total=0
@@ -78,7 +78,11 @@ def main():
                        directionmatrix[i][j]="l"
     humanlen=len(humangenome)
     muskitolen=len(muskitogenome)
-
+#    for i in directionmatrix:
+#        print(i)
+#    print()
+#    for i in submatrix:
+#        print(i)
     if humanlen > muskitolen:
         traceback=muskitolen
         tracebackstring=muskitogenome

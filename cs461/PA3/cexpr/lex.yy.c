@@ -737,7 +737,7 @@ case 2:
 YY_RULE_SETUP
 #line 10 "scan.l"
 { 
-            sscanf(yytext, "%d", &yylval.num);
+            sscanf(yytext, "%lld", &yylval.num);
             return NUM; 
        	 }
 	YY_BREAK

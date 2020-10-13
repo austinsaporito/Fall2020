@@ -9,7 +9,7 @@ def main():
 	genomelist=[]
 	genomedic={}
 	total=0
-	f=open("training","r")
+	f=open("human_mito.fasta","r")
 	trash=f.readline()
 	genomestring=f.read()
 	genomestring=genomestring.replace("\n",'')
@@ -26,7 +26,7 @@ def main():
 	gprob=gcount/genomelength
 	tprob=tcount/genomelength
 
-	tmp=itertools.product(L, repeat=2)
+	tmp=itertools.product(L, repeat=4)
 	strain=""
 	for i in tmp:
 		strain=""
@@ -36,36 +36,33 @@ def main():
 	first3=""
 	for i in genomelist:
 		first3=""
-		first3=i[0:1]
+		first3=i[0:3]
 		denom=len(re.findall("(?="+first3+")",genomestring))
 		num=len(re.findall("(?="+i+")",genomestring))
-		if denom is not 0:
-			genomedic.update({i:num/denom})
+		genomedic.update({i:num/denom})
 	
-	print(genomedic)	
-	f=open("string","r")
+	
+	f=open("neander_sample.fasta","r")
 	trash=f.readline()
 	neanderstring=f.read().replace("\n",'')
-	print(neanderstring)
 
-	lasti=0
-	total=1
-	for i in range(0,1):
+	lasti=1
+	total=0
+	for i in range(0,4):
 		if neanderstring[i]=="A":
-			total*=aprob
+			total+=math.log(aprob)
 		if neanderstring[i]=="G":
-			total*=gprob
+			total+=math.log(gprob)
 		if neanderstring[i]=="C":
-			total*=cprob
+			total+=math.log(cprob)
 		if neanderstring[i]=="T":
-			total*=tprob
-	print(total)
-	for i in range(2,len(neanderstring)+1,1):
+			total+=math.log(tprob)
+
+	for i in range(5,len(neanderstring)+1,1):
 		print(neanderstring[lasti:i])
 		find=neanderstring[lasti:i]
-		total*=genomedic[find]
+		total+=math.log(genomedic[find])
 		lasti+=1
-
 
 	print("Log probability Markov:",total)
 

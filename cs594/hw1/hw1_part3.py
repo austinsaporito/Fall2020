@@ -2,7 +2,7 @@
 
 def main():
 	reversecomp=""
-	f=open("lambda.fasta","r")
+	f=open("test","r")
 	trash=f.readline()
 	genomestring=f.read()
 	reversegenome=genomestring[::-1]

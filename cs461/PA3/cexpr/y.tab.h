@@ -56,9 +56,9 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 19 "cexpr.y"
+#line 31 "cexpr.y"
 {
-  int num;
+  long long num;
   char var;
 }
 /* Line 1529 of yacc.c.  */
