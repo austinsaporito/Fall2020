@@ -1,0 +1,25 @@
+Austin Saporito
+Homework 4
+Bio-informatics
+
+5) have delta file
+
+6) have the snps file and a png of the graph.
+
+7) the two genomes were closely aligned from looking at the results and nucmer. if I was reading 
+the results correctly there were not many snps. I also have a png file of the two strains graphed. 
+Because the two straines are related I figured they would be pretty closely related because they are 
+related. so I can assume the difference is from the ancestor genome and the Ames has evolved to possibly be better.
+Because they are very closely related I would assume the structure is nearly the same between the two. Looking 
+at the graph the split between the line the dot plot looks the same.
+
+8) contigs included
+
+9) contigs included
+
+10) delta file included
+
+11) Between these two genomes I do not think they line up very well. I can see night and day difference between the two 
+png graphs. the first one is very clean and readable while this one looks like a jumbled mess. also because there were many 
+contigs they are not good assemblies further confirming my assumption. I assumed Dr. Emirch just made a kitchen sink of genomes
+and because of this it doesnt align well with the influenza genome.
